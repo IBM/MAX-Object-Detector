@@ -47,7 +47,7 @@ Y. Song, S. Guadarrama, K. Murphy_, ["Speed/accuracy trade-offs for modern convo
 Clone the `MAX-Object-Detection` repository locally. In a terminal, run the following command:
 
 ```
-$ git clone https://github.ibm.com/IBM/MAX-Object-Detection
+$ git clone https://github.com/IBM/MAX-Object-Detector.git
 ```
 
 Change directory into the repository base folder:
