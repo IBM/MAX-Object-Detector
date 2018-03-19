@@ -44,7 +44,7 @@ Y. Song, S. Guadarrama, K. Murphy_, ["Speed/accuracy trade-offs for modern convo
 
 ## 1. Build the Model
 
-Clone the `MAX-Object-Detection` repository locally. In a terminal, run the following command:
+Clone this repository locally. In a terminal, run the following command:
 
 ```
 $ git clone https://github.com/IBM/MAX-Object-Detector.git
@@ -53,7 +53,7 @@ $ git clone https://github.com/IBM/MAX-Object-Detector.git
 Change directory into the repository base folder:
 
 ```
-$ cd MAX-Object-Detection
+$ cd MAX-Object-Detector
 ```
 
 To build the docker image locally, run: 
