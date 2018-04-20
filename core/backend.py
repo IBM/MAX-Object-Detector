@@ -116,5 +116,5 @@ class ModelWrapper(object):
                         }
                     )
             # sending top 5 entries to output        
-            for i in range(min(5,len(label_preds))): print(label_preds[i])
+            # for i in range(min(5,len(label_preds))): print(label_preds[i])
         return label_preds 
