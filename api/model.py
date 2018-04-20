@@ -25,7 +25,8 @@ class Model(Resource):
 label_prediction = api.model('LabelPrediction', {
     'label_id': fields.String(required=False, description='Label identifier'),
     'label': fields.String(required=True, description='Class label'),
-    'probability': fields.Float(required=True)
+    'probability': fields.Float(required=True),
+    'detection_box': fields.List(fields.Float(required=True))
 })
 
 predict_response = api.model('ModelPredictResponse', {

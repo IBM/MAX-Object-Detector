@@ -109,7 +109,8 @@ class ModelWrapper(object):
                     label_preds.append(
                         {'label_id': label_id, 
                             'label': self.category_index[label_id]['name'],
-                            'probability': output_dict['detection_scores'][i]
+                            'probability': output_dict['detection_scores'][i],
+                            'detection_box': output_dict['detection_boxes'][i].tolist()
                         }
                     )
             # sending top 5 entries to output        
