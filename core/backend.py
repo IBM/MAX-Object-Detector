@@ -106,8 +106,6 @@ class ModelWrapper(object):
             label_preds=[] 
             for i, label_id in enumerate(output_dict['detection_classes']):
                 if output_dict['detection_scores'][i] > 0.7: #where to set this?
-                    print("jndb verify bounding box! also update model.py:28 with label")
-                    print(output_dict['detection_boxes'][i])
                     label_preds.append(
                         {'label_id': label_id, 
                             'label': self.category_index[label_id]['name'],
