@@ -77,7 +77,7 @@ $ docker run -it -p 5000:5000 max-tf-object-detection
 
 The API server automatically generates an interactive Swagger documentation page. Go to `http://localhost:5000` to load it. From there you can explore the API and also create test requests.
 
-Use the `model/predict` endpoint to load a test image (you can use one of the test images from the `assets` folder) and get predicted labels for the image from the API.
+Use the `model/predict` endpoint to load a test image (you can use one of the test images from the `assets` folder) and get predicted labels for the image from the API.  The coordinates of the bounding box are returned in the `detection_box` field, and contain the array of normalized coordinates (ranging from 0 to 1) in the form `[ymin, xmin, ymax, xmax]`.
 
 ![Swagger Doc Screenshot](docs/swagger-screenshot.png)
 
@@ -93,16 +93,28 @@ You should see a JSON response like that below:
 {
   "status": "ok",
   "predictions": [
-    {
-      "label_id": "1",
-      "label": "person",
-      "probability": 0.94403499364853
-    },
-    {
-      "label_id": "18",
-      "label": "dog",
-      "probability": 0.86455118656158
-    }
+      {
+          "label_id": "1",
+          "label": "person",
+          "probability": 0.944034993648529,
+          "detection_box": [
+              0.1242099404335022,
+              0.12507188320159912,
+              0.8423267006874084,
+              0.5974075794219971
+          ]
+      },
+      {
+          "label_id": "18",
+          "label": "dog",
+          "probability": 0.8645511865615845,
+          "detection_box": [
+              0.10447660088539124,
+              0.17799153923988342,
+              0.8422801494598389,
+              0.732001781463623
+          ]
+      }
   ]
 }
 ```
