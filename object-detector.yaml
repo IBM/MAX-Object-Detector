@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: object-detector
+  namespace: default
+  labels:
+    app: object-detector
+spec:
+  restartPolicy: Always
+  containers:
+  - env:
+    name: object-detector
+    image: codait/max-object-detector
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: object-detector
+    component: object-detector
+  name: object-detector
+spec:
+  ports:
+  - name: http
+    port: 5000
+    targetPort: 5000
+  selector:
+    app: object-detector
+  sessionAffinity: None
+  type: NodePort
