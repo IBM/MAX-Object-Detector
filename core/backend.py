@@ -18,7 +18,7 @@ from config import PATH_TO_CKPT, PATH_TO_LABELS, NUM_CLASSES
 
 
 def read_image(image_data):
-    image = Image.open(io.BytesIO(image_data))
+    image = Image.open(io.BytesIO(image_data)).convert("RGB").convert("RGB")
     return image
 
 def preprocess_image(image):
@@ -36,25 +36,25 @@ class ModelWrapper(object):
         detection_graph = tf.Graph()
         graph = tf.Graph()
         sess = tf.Session(graph=detection_graph)
-        # load the graph === 
+        # load the graph ===
         # loading a (frozen) TensorFlow mdoel into memory
-        
+
         with graph.as_default():
             od_graph_def = tf.GraphDef()
             with tf.gfile.GFile(model_file, 'rb') as fid:
                 serialized_graph = fid.read()
                 od_graph_def.ParseFromString(serialized_graph)
                 tf.import_graph_def(od_graph_def, name='')
-            
+
             # loading a label map
             label_map = label_map_util.load_labelmap(label_file)
             categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
             category_index = label_map_util.create_category_index(categories)
-        
+
         # set up instance variables
         self.graph = graph
         self.category_index = category_index
-        self.categories = categories 
+        self.categories = categories
 
     def predict(self, imageRaw):  #was origninally run_inference_for_single_image
         image = preprocess_image(imageRaw)
@@ -103,16 +103,16 @@ class ModelWrapper(object):
                 if 'detection_masks' in output_dict:
                     output_dict['detection_masks'] = output_dict['detection_masks'][0]
             # TODO:  Threshold setting of 0.7 is only an ad hoc setting to limit result size...
-            label_preds=[] 
+            label_preds=[]
             for i, label_id in enumerate(output_dict['detection_classes']):
                 if output_dict['detection_scores'][i] > 0.7: #where to set this?
                     label_preds.append(
-                        {'label_id': label_id, 
+                        {'label_id': label_id,
                             'label': self.category_index[label_id]['name'],
                             'probability': output_dict['detection_scores'][i],
                             'detection_box': output_dict['detection_boxes'][i].tolist()
                         }
                     )
-            # sending top 5 entries to output        
+            # sending top 5 entries to output
             # for i in range(min(5,len(label_preds))): print(label_preds[i])
-        return label_preds 
+        return label_preds
