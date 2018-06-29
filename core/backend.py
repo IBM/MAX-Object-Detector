@@ -18,7 +18,7 @@ from config import PATH_TO_CKPT, PATH_TO_LABELS, NUM_CLASSES
 
 
 def read_image(image_data):
-    image = Image.open(io.BytesIO(image_data)).convert("RGB").convert("RGB")
+    image = Image.open(io.BytesIO(image_data)).convert("RGB")
     return image
 
 def preprocess_image(image):
