@@ -56,7 +56,7 @@ class ModelWrapper(object):
         self.category_index = category_index
         self.categories = categories
 
-    def predict(self, imageRaw):  #was origninally run_inference_for_single_image
+    def predict(self, imageRaw, threshold):  #was origninally run_inference_for_single_image
         image = preprocess_image(imageRaw)
         print("image loaded")
         with self.graph.as_default():
@@ -105,7 +105,7 @@ class ModelWrapper(object):
             # TODO:  Threshold setting of 0.7 is only an ad hoc setting to limit result size...
             label_preds=[]
             for i, label_id in enumerate(output_dict['detection_classes']):
-                if output_dict['detection_scores'][i] > 0.7: #where to set this?
+                if output_dict['detection_scores'][i] > threshold: #where to set this?
                     label_preds.append(
                         {'label_id': label_id,
                             'label': self.category_index[label_id]['name'],
