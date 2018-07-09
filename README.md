@@ -119,6 +119,15 @@ You should see a JSON response like that below:
 }
 ```
 
+You can also control the probability threshold for what objects are returned using the `threshold` argument like below:
+
+```
+$ curl -F "image=@assets/dog-human.jpg" -XPOST http://127.0.0.1:5000/model/predict?threshold=0.5
+```
+
+The optional `threshold` parameter is the minimum `probability` value for predicted labels returned by the model.
+The default value for `threshold` is `0.7`.
+
 ## 4. Development
 
 To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` under the application settings. You will then need to rebuild the docker image (see [step 1](#1-build-the-model)).
