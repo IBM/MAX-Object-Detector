@@ -1,0 +1,79 @@
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Style sheet for MAX Image Caption Generator Web App */
+
+body {
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container-fluid {
+  padding: 1% 2%;
+}
+
+#codait-logo {
+  min-width: 162px;
+  min-height: 150px;
+}
+
+#codait-logo img {
+  width: 162px;
+  height: 150px;
+}
+
+.title-section h1 {
+  margin-top: 10px;
+}
+
+.panel-title {
+  font-size: 18px;
+}
+
+.ibm-code .btn-primary {
+  background-color: #26A8A2;
+  border-color: #32A8A3;
+  white-space: normal;
+}
+
+.ibm-code .btn-primary:hover {
+  background-color: #1E8B87;
+  border-color: #2D8B89;
+}
+
+.info-icon {
+  font-size: 14px;
+  font-weight: bold;
+  cursor: help;
+}
+
+#threshold-range {
+  margin: 15px 0;
+}
+
+#image-display {
+  position: relative;
+}
+
+#image-display img {
+  max-width: 100%;
+}
+
+#image-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
