@@ -37,6 +37,7 @@ predict_response = api.model('ModelPredictResponse', {
 # set up parser for image input data
 image_parser = api.parser()
 image_parser.add_argument('image', type=FileStorage, location='files', required=True)
+image_parser.add_argument('threshold', type=float, default=0.7)
 
 @api.route('/predict')
 class Predict(Resource):
@@ -51,9 +52,10 @@ class Predict(Resource):
         result = {'status': 'error'}
 
         args = image_parser.parse_args()
+        threshold = args['threshold']
         image_data = args['image'].read()
         image = read_image(image_data)
-        label_preds = self.model_wrapper.predict(image)
+        label_preds = self.model_wrapper.predict(image, threshold)
         
         result['predictions'] = label_preds
         result['status'] = 'ok'
