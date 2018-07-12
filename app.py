@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from api import api
 
-if 'DISABLE_WEB_APP' not in os.environ:
+if os.getenv('DISABLE_WEB_APP') != "true":
     app = Flask(__name__, static_url_path='')
 else:
     app = Flask(__name__)
@@ -14,7 +14,7 @@ if 'APP_CONFIG' in os.environ:
     app.config.from_envvar('APP_CONFIG')
 api.init_app(app)
 
-if 'DISABLE_WEB_APP' not in os.environ:
+if os.getenv('DISABLE_WEB_APP') != "true":
     @app.route('/app/')
     def web_app():
         return app.send_static_file('index.html')

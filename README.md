@@ -146,5 +146,5 @@ and provides interactive visualization of the bounding boxes and their related l
 If you wish to disable the mini web app, start the model serving API by running:
 
 ```
-$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP max-tf-object-detection
+$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true max-tf-object-detection
 ```
