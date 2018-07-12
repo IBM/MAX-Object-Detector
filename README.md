@@ -142,3 +142,9 @@ When the API server is running, the mini web app can be accessed at `http://loca
 and provides interactive visualization of the bounding boxes and their related labels returned by the model.
 
 ![Mini Web App Screenshot](docs/mini-web-app.png)
+
+If you wish to disable the mini web app, start the model serving API by running:
+
+```
+$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP max-tf-object-detection
+```
