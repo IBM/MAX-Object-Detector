@@ -132,3 +132,19 @@ The default value for `threshold` is `0.7`.
 
 To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` under the application settings. You will then need to rebuild the docker image (see [step 1](#1-build-the-model)).
 
+# Object Detector Mini Web App
+
+The [Mini Web App v2 Release](https://github.com/CODAIT/MAX-Object-Detector-Web-App/releases)
+of the [MAX Object Detector Web App](https://github.com/CODAIT/MAX-Object-Detector-Web-App)
+is included with the Object Detector API server.
+
+When the API server is running, the mini web app can be accessed at `http://localhost:5000/app`
+and provides interactive visualization of the bounding boxes and their related labels returned by the model.
+
+![Mini Web App Screenshot](docs/mini-web-app.png)
+
+If you wish to disable the mini web app, start the model serving API by running:
+
+```
+$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true max-tf-object-detection
+```
