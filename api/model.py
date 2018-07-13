@@ -22,6 +22,21 @@ class Model(Resource):
         return MODEL_META_DATA
 
 
+model_wrapper = ModelWrapper()
+
+model_labels = api.model('ModelLabels', {
+    'id': fields.String(required=True, description='Label identifier'),
+    'name': fields.String(required=True, description='Label'),
+})
+
+@api.route('/labels')
+class Labels(Resource):
+    @api.doc('get_labels')
+    @api.marshal_with(model_labels)
+    def get(self):
+        '''Return the list of labels that can be predicted by the model'''
+        return model_wrapper.categories
+
 label_prediction = api.model('LabelPrediction', {
     'label_id': fields.String(required=False, description='Label identifier'),
     'label': fields.String(required=True, description='Class label'),
@@ -42,8 +57,6 @@ image_parser.add_argument('threshold', type=float, default=0.7)
 @api.route('/predict')
 class Predict(Resource):
 
-    model_wrapper = ModelWrapper()
-
     @api.doc('predict')
     @api.expect(image_parser)
     @api.marshal_with(predict_response)
@@ -55,7 +68,7 @@ class Predict(Resource):
         threshold = args['threshold']
         image_data = args['image'].read()
         image = read_image(image_data)
-        label_preds = self.model_wrapper.predict(image, threshold)
+        label_preds = model_wrapper.predict(image, threshold)
         
         result['predictions'] = label_preds
         result['status'] = 'ok'
