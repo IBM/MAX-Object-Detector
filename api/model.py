@@ -24,18 +24,28 @@ class Model(Resource):
 
 model_wrapper = ModelWrapper()
 
-model_labels = api.model('ModelLabels', {
+model_label = api.model('ModelLabel', {
     'id': fields.String(required=True, description='Label identifier'),
     'name': fields.String(required=True, description='Label'),
+})
+
+labels_response = api.model('LabelsResponse', {
+    'status': fields.String(required=True, description='Response status message'),
+    'labels': fields.List(fields.Nested(model_label), description='Labels that can be predicted by the model')
 })
 
 @api.route('/labels')
 class Labels(Resource):
     @api.doc('get_labels')
-    @api.marshal_with(model_labels)
+    @api.marshal_with(labels_response)
     def get(self):
         '''Return the list of labels that can be predicted by the model'''
-        return model_wrapper.categories
+        result = {'status': 'error'}
+
+        result['labels'] = model_wrapper.categories
+        result['status'] = 'ok'
+
+        return result
 
 label_prediction = api.model('LabelPrediction', {
     'label_id': fields.String(required=False, description='Label identifier'),
