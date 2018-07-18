@@ -30,7 +30,7 @@ model_label = api.model('ModelLabel', {
 })
 
 labels_response = api.model('LabelsResponse', {
-    'status': fields.String(required=True, description='Response status message'),
+    'count': fields.String(required=True, description='Number of labels returned'),
     'labels': fields.List(fields.Nested(model_label), description='Labels that can be predicted by the model')
 })
 
@@ -40,11 +40,9 @@ class Labels(Resource):
     @api.marshal_with(labels_response)
     def get(self):
         '''Return the list of labels that can be predicted by the model'''
-        result = {'status': 'error'}
-
+        result = {}
         result['labels'] = model_wrapper.categories
-        result['status'] = 'ok'
-
+        result['count'] = len(model_wrapper.categories)
         return result
 
 label_prediction = api.model('LabelPrediction', {
