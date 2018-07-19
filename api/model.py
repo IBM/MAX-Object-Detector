@@ -30,7 +30,7 @@ model_label = api.model('ModelLabel', {
 })
 
 labels_response = api.model('LabelsResponse', {
-    'count': fields.String(required=True, description='Number of labels returned'),
+    'count': fields.Integer(required=True, description='Number of labels returned'),
     'labels': fields.List(fields.Nested(model_label), description='Labels that can be predicted by the model')
 })
 
