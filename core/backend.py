@@ -10,7 +10,7 @@ import logging
 # TODO maybe a better way to import this?
 import sys
 sys.path.insert(0, '../')
-from utils import label_map_util
+from utils import label_map_util, ops as utils_ops
 
 logger = logging.getLogger()
 
