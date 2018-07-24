@@ -7,7 +7,7 @@ spec:
     app: max-object-detector
   ports:
   - port: 5000
-  type: LoadBalancer
+  type: NodePort
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
