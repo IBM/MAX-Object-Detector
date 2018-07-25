@@ -8,4 +8,5 @@ api = Api(
 	version=API_VERSION,
 	description=API_DESC)
 
+api.namespaces.clear()
 api.add_namespace(model_ns)
