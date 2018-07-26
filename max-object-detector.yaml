@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: max-object-detector
+spec:
+  selector:
+    app: max-object-detector
+  ports:
+  - port: 5000
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: max-object-detector
+  labels:
+    app: max-object-detector
+spec:
+  selector:
+    matchLabels:
+      app: max-object-detector
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: max-object-detector
+    spec:
+      containers:
+      - name: max-object-detector
+        image: codait/max-object-detector:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DISABLE_WEB_APP
+          value: "false"
