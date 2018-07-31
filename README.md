@@ -56,7 +56,7 @@ On your Kubernetes cluster, run the following commands:
 
     kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Object-Detector/master/max-object-detector.yaml
 
-The model will be available internally at port `5000`, but can be also accessed externally through the `NodePort`.
+The model will be available internally at port `5000`, but can also be accessed externally through the `NodePort`.
 
 ## Run Locally
 
