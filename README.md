@@ -35,6 +35,31 @@ Y. Song, S. Guadarrama, K. Murphy_, ["Speed/accuracy trade-offs for modern convo
 
 ## Steps
 
+1. [Deploy from Docker Hub](#deploy-from-docker-hub)
+2. [Deploy on Kubernetes](#deploy-on-kubernetes)
+3. [Run Locally](#run-locally)
+
+### Deploy from Docker Hub
+
+To run the docker image, which automatically starts the model serving API, run:
+
+    docker run -it -p 5000:5000 codait/max-object-detector
+
+This will pull a pre-built image from Docker Hub (or use an existing image if already cached locally) and run it.
+If you'd rather checkout and build the model locally you can follow the [run locally](#run-locally) steps below.
+
+### Deploy on Kubernetes
+
+You can also deploy the model on Kubernetes using the latest docker image on Docker Hub.
+
+On your Kubernetes cluster, run the following commands:
+
+    kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Object-Detector/master/max-object-detector.yaml
+
+The model will be available internally at port `5000`, but can be also accessed externally through the `NodePort`.
+
+### Run Locally
+
 1. [Build the Model](#1-build-the-model)
 2. [Deploy the Model](#2-deploy-the-model)
 3. [Use the Model](#3-use-the-model)
@@ -42,7 +67,7 @@ Y. Song, S. Guadarrama, K. Murphy_, ["Speed/accuracy trade-offs for modern convo
 5. [Clean Up](#5-clean-up)
 
 
-## 1. Build the Model
+#### 1. Build the Model
 
 Clone this repository locally. In a terminal, run the following command:
 
@@ -59,21 +84,21 @@ $ cd MAX-Object-Detector
 To build the docker image locally, run: 
 
 ```
-$ docker build -t max-tf-object-detection .
+$ docker build -t max-object-detector .
 ```
 
 All required model assets will be downloaded during the build process. _Note_ that currently this docker image is CPU only (we will add support for GPU images later).
 
 
-## 2. Deploy the Model
+#### 2. Deploy the Model
 
 To run the docker image, which automatically starts the model serving API, run:
 
 ```
-$ docker run -it -p 5000:5000 max-tf-object-detection
+$ docker run -it -p 5000:5000 max-object-detector
 ```
 
-## 3. Use the Model
+#### 3. Use the Model
 
 The API server automatically generates an interactive Swagger documentation page. Go to `http://localhost:5000` to load it. From there you can explore the API and also create test requests.
 
@@ -128,7 +153,7 @@ $ curl -F "image=@assets/dog-human.jpg" -XPOST http://127.0.0.1:5000/model/predi
 The optional `threshold` parameter is the minimum `probability` value for predicted labels returned by the model.
 The default value for `threshold` is `0.7`.
 
-## 4. Development
+#### 4. Development
 
 To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` under the application settings. You will then need to rebuild the docker image (see [step 1](#1-build-the-model)).
 
@@ -146,5 +171,5 @@ and provides interactive visualization of the bounding boxes and their related l
 If you wish to disable the mini web app, start the model serving API by running:
 
 ```
-$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true max-tf-object-detection
+$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true max-object-detector
 ```
