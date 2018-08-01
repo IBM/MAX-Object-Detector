@@ -25,13 +25,13 @@ class Model(Resource):
 model_wrapper = ModelWrapper()
 
 model_label = api.model('ModelLabel', {
-    'id': fields.String(required=True, description='Label identifier'),
-    'name': fields.String(required=True, description='Label'),
+    'id': fields.String(required=True, description='Class label identifier'),
+    'name': fields.String(required=True, description='Class label'),
 })
 
 labels_response = api.model('LabelsResponse', {
-    'count': fields.Integer(required=True, description='Number of labels returned'),
-    'labels': fields.List(fields.Nested(model_label), description='Labels that can be predicted by the model')
+    'count': fields.Integer(required=True, description='Number of class labels returned'),
+    'labels': fields.List(fields.Nested(model_label), description='Class labels that can be predicted by the model')
 })
 
 @api.route('/labels')
@@ -46,21 +46,21 @@ class Labels(Resource):
         return result
 
 label_prediction = api.model('LabelPrediction', {
-    'label_id': fields.String(required=False, description='Label identifier'),
+    'label_id': fields.String(required=False, description='Class label identifier'),
     'label': fields.String(required=True, description='Class label'),
-    'probability': fields.Float(required=True),
-    'detection_box': fields.List(fields.Float(required=True))
+    'probability': fields.Float(required=True, description='Predicted probability for the class label'),
+    'detection_box': fields.List(fields.Float(required=True), description='Coordinates of the bounding box for detected object. Format is an array of normalized coordinates (ranging from 0 to 1) in the form [ymin, xmin, ymax, xmax]')
 })
 
 predict_response = api.model('ModelPredictResponse', {
     'status': fields.String(required=True, description='Response status message'),
-    'predictions': fields.List(fields.Nested(label_prediction), description='Predicted labels and probabilities')
+    'predictions': fields.List(fields.Nested(label_prediction), description='Predicted class labels, probabilities and bounding box for each detected object')
 })
 
 # set up parser for image input data
 image_parser = api.parser()
-image_parser.add_argument('image', type=FileStorage, location='files', required=True)
-image_parser.add_argument('threshold', type=float, default=0.7)
+image_parser.add_argument('image', type=FileStorage, location='files', required=True, help='An image file (encoded as PNG or JPG/JPEG)')
+image_parser.add_argument('threshold', type=float, default=0.7, help='Probability threshold for including a detected object in the response in the range [0, 1] (default: 0.7). Lowering the threshold includes objects the model is less certain about.')
 
 @api.route('/predict')
 class Predict(Resource):
