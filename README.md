@@ -64,6 +64,7 @@ The model will be available internally at port `5000`, but can also be accessed 
 2. [Deploy the Model](#2-deploy-the-model)
 3. [Use the Model](#3-use-the-model)
 4. [Development](#4-development)
+5. [Clean Up](#5-clean-up)
 
 
 ### 1. Build the Model
@@ -155,6 +156,10 @@ The default value for `threshold` is `0.7`.
 ### 4. Development
 
 To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` under the application settings. You will then need to rebuild the docker image (see [step 1](#1-build-the-model)).
+
+### 5. Cleanup
+
+To stop the Docker container, type `CTRL` + `C` in your terminal.
 
 # Object Detector Mini Web App
 
