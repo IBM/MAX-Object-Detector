@@ -43,7 +43,9 @@ Y. Song, S. Guadarrama, K. Murphy_, ["Speed/accuracy trade-offs for modern convo
 
 To run the docker image, which automatically starts the model serving API, run:
 
-    docker run -it -p 5000:5000 codait/max-object-detector
+```
+$ docker run -it -p 5000:5000 codait/max-object-detector
+```
 
 This will pull a pre-built image from Docker Hub (or use an existing image if already cached locally) and run it.
 If you'd rather checkout and build the model locally you can follow the [run locally](#run-locally) steps below.
@@ -54,7 +56,9 @@ You can also deploy the model on Kubernetes using the latest docker image on Doc
 
 On your Kubernetes cluster, run the following commands:
 
-    kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Object-Detector/master/max-object-detector.yaml
+```
+$ kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Object-Detector/master/max-object-detector.yaml
+```
 
 The model will be available internally at port `5000`, but can also be accessed externally through the `NodePort`.
 
