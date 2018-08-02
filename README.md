@@ -179,5 +179,5 @@ and provides interactive visualization of the bounding boxes and their related l
 If you wish to disable the mini web app, start the model serving API by running:
 
 ```
-$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true max-object-detector
+$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true codait/max-object-detector
 ```
