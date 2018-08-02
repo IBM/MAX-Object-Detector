@@ -11,6 +11,10 @@ RUN tar -x -C assets/ -f assets/${model_file} -v
 RUN wget -nv ${model_bucket}/${data_file} --output-document=/workspace/assets/${data_file}
 RUN tar -x -C assets/ -f assets/${data_file} -v
 
+RUN wget -nv https://github.com/CODAIT/MAX-Object-Detector-Web-App/archive/v0.2.tar.gz
+RUN tar -xf v0.2.tar.gz 
+RUN mv ./MAX-Object-Detector-Web-App-0.2/static static
+
 # Python package versions
 ARG tf_version=1.5.0
 
