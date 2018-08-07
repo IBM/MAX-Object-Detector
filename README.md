@@ -165,18 +165,17 @@ To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` u
 
 To stop the Docker container, type `CTRL` + `C` in your terminal.
 
-# Object Detector Mini Web App
+# Object Detector Web App
 
-The [Mini Web App v2 Release](https://github.com/CODAIT/MAX-Object-Detector-Web-App/releases)
-of the [MAX Object Detector Web App](https://github.com/CODAIT/MAX-Object-Detector-Web-App)
-is included with the Object Detector API server.
+The latest release of the [MAX Object Detector Web App](https://github.com/IBM/MAX-Object-Detector-Web-App)
+is included in the Object Detector docker image.
 
-When the API server is running, the mini web app can be accessed at `http://localhost:5000/app`
+When the model API server is running, the web app can be accessed at `http://localhost:5000/app`
 and provides interactive visualization of the bounding boxes and their related labels returned by the model.
 
 ![Mini Web App Screenshot](docs/mini-web-app.png)
 
-If you wish to disable the mini web app, start the model serving API by running:
+If you wish to disable the web app, start the model serving API by running:
 
 ```
 $ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true codait/max-object-detector
