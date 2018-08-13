@@ -49,7 +49,7 @@ label_prediction = api.model('LabelPrediction', {
     'label_id': fields.String(required=False, description='Class label identifier'),
     'label': fields.String(required=True, description='Class label'),
     'probability': fields.Float(required=True, description='Predicted probability for the class label'),
-    'detection_box': fields.List(fields.Float(required=True), description='Coordinates of the bounding box for detected object. Format is an array of normalized coordinates (ranging from 0 to 1) in the form [ymin, xmin, ymax, xmax]')
+    'detection_box': fields.List(fields.Float(required=True), description='Coordinates of the bounding box for detected object. Format is an array of normalized coordinates (ranging from 0 to 1) in the form [ymin, xmin, ymax, xmax].')
 })
 
 predict_response = api.model('ModelPredictResponse', {
