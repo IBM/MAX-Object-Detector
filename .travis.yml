@@ -1,0 +1,12 @@
+language: python
+python:
+- 3.6
+services:
+- docker
+install:
+- docker build -t max-object-detector .
+- docker run -it -d -p 5000:5000 max-object-detector
+before_script:
+- pip install pytest pycurl
+script:
+- pytest tests/test.py
