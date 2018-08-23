@@ -7,6 +7,6 @@ install:
 - docker build -t max-object-detector .
 - docker run -it -d -p 5000:5000 max-object-detector
 before_script:
-- pip install pytest pycurl
+- pip install pytest requests
 script:
 - pytest tests/test.py
