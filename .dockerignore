@@ -1,2 +1,4 @@
 Dockerfile
 README.*
+.git/
+.idea/
