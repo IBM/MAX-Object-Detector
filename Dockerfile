@@ -12,10 +12,10 @@ RUN tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file}
 RUN wget -nv ${model_bucket}/${data_file} --output-document=/workspace/assets/${data_file}
 RUN tar -x -C assets/ -f assets/${data_file} -v && rm assets/${data_file}
 
-RUN wget -nv https://github.com/IBM/MAX-Object-Detector-Web-App/archive/v1.0.tar.gz
-RUN tar -xf v1.0.tar.gz && rm v1.0.tar.gz
+RUN wget -nv https://github.com/IBM/MAX-Object-Detector-Web-App/archive/v1.1.tar.gz
+RUN tar -xf v1.1.tar.gz && rm v1.1.tar.gz
 
-RUN mv ./MAX-Object-Detector-Web-App-1.0/static static
+RUN mv ./MAX-Object-Detector-Web-App-1.1/static static
 
 # Python package versions
 ARG tf_version=1.5.0
