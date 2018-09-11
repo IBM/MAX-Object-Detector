@@ -165,6 +165,10 @@ To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` u
 
 To stop the Docker container, type `CTRL` + `C` in your terminal.
 
+## Links
+
+* [Object Detector Web App](https://developer.ibm.com/patterns/create-a-web-app-to-interact-with-objects-detected-using-machine-learning/): A reference application created by the IBM CODAIT team that uses the Object Detector
+
 # Object Detector Web App
 
 The latest release of the [MAX Object Detector Web App](https://github.com/IBM/MAX-Object-Detector-Web-App)
