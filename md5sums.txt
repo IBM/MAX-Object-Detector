@@ -1,0 +1,7 @@
+49330b79a1519b14506835aa2dbe3432  assets/data/BUILD
+f22484742dbe8a188940236e36252347  assets/data/kitti_label_map.pbtxt
+edd15e5ae62cf87b34bfd2d33c48f2c1  assets/data/mscoco_label_map.pbtxt
+4378e8c86726cdfde4aa04ee4205b7c3  assets/data/oid_bbox_trainable_label_map.pbtxt
+748ad6d8556c55cc1b24518d1574363e  assets/data/pascal_label_map.pbtxt
+6f360c6b26c08fbe9f68dcb445c1ce32  assets/data/pet_label_map.pbtxt
+1be3ed58a65ced5936b1bff3fc09d9b1  assets/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb
