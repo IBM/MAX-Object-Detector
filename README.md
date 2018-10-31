@@ -1,4 +1,4 @@
-# IBM Code Model Asset Exchange: Object Detector
+# IBM Developer Model Asset Exchange: Object Detector
 
 This repository contains code to instantiate and deploy an object detection model. This model recognizes the objects present in an image from the 80 different high-level classes of objects in the [COCO Dataset](http://mscoco.org/). The model consists of a deep convolutional net base model for image feature extraction, together with additional convolutional layers specialized for the task of object detection, that was trained on the COCO data set. The input to the model is an image, and the output is a list of estimated class probabilities for the objects detected in the image.
 
