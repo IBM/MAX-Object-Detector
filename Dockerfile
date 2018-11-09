@@ -1,7 +1,7 @@
 FROM codait/max-base
 
-ARG model_bucket=http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/object_detection
-ARG model_file=ssd_mobilenet_v1_coco_2017_11_17.tar.gz
+ARG model_bucket=http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/object-detector/1.0
+ARG model_file=model.tar.gz
 ARG data_file=data.tar.gz
 
 WORKDIR /workspace
