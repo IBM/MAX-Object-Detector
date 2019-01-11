@@ -12,7 +12,7 @@ def test_swagger():
 
     json = r.json()
     assert 'swagger' in json
-    assert json.get('info') and json.get('info').get('title') == 'Model Asset Exchange Server'
+    assert json.get('info') and json.get('info').get('title') == 'Object Detector'
 
 
 def test_metadata():
@@ -26,6 +26,8 @@ def test_metadata():
     assert metadata['id'] == 'ssd_mobilenet_v1_coco_2017_11_17-tf-mobilenet'
     assert metadata['name'] == 'ssd_mobilenet_v1_coco_2017_11_17 TensorFlow Model'
     assert metadata['description'] == 'ssd_mobilenet_v1_coco_2017_11_17 TensorFlow model trained on MobileNet'
+    assert metadata['type'] == 'Object Detection'
+    assert metadata['source'] == 'https://developer.ibm.com/exchanges/models/all/max-object-detector/'
     assert metadata['license'] == 'ApacheV2'
 
 
