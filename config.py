@@ -8,8 +8,8 @@ RESTPLUS_MASK_SWAGGER = False
 # Application settings
 
 # API metadata
-API_TITLE = 'Model Asset Exchange Server'
-API_DESC = 'An API for serving models'
+API_TITLE = 'MAX Object Detector'
+API_DESC = 'Localize and identify multiple objects in a single image.'
 API_VERSION = '0.1'
 
 # default model
@@ -31,6 +31,7 @@ MODEL_META_DATA = {
     'id': '{}-tf-mobilenet'.format(MODEL_NAME.lower()),
     'name': '{} TensorFlow Model'.format(MODEL_NAME),
     'description': '{} TensorFlow model trained on MobileNet'.format(MODEL_NAME),
-    'type': 'object_detection',
+    'type': 'Object Detection',
+    'source': 'https://developer.ibm.com/exchanges/models/all/max-object-detector/',
     'license': '{}'.format(MODEL_LICENSE)
 }
