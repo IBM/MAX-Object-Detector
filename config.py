@@ -8,7 +8,7 @@ RESTPLUS_MASK_SWAGGER = False
 # Application settings
 
 # API metadata
-API_TITLE = 'Object Detector'
+API_TITLE = 'MAX Object Detector'
 API_DESC = 'Localize and identify multiple objects in a single image.'
 API_VERSION = '0.1'
 
