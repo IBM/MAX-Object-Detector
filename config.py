@@ -1,5 +1,4 @@
-import os
-# Flask settings 
+# Flask settings
 DEBUG = False
 
 # Flask-restplus settings
