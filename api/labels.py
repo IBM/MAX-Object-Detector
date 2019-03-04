@@ -1,4 +1,4 @@
-from maxfw.core import MAX_API, MAXAPI
+from maxfw.core import MAX_API, CustomMAXAPI
 from flask_restplus import fields
 from core.model import ModelWrapper
 
@@ -16,7 +16,7 @@ labels_response = MAX_API.model('LabelsResponse', {
 })
 
 
-class ModelLabelsAPI(MAXAPI):
+class ModelLabelsAPI(CustomMAXAPI):
 
     model_wrapper = ModelWrapper()
 
