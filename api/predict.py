@@ -1,7 +1,35 @@
-from maxfw.core import MAX_API, PredictAPI
+from maxfw.core import MAX_API, PredictAPI, CustomMAXAPI
 from flask_restplus import fields
 from werkzeug.datastructures import FileStorage
 from core.model import ModelWrapper
+
+model_label = MAX_API.model('ModelLabel', {
+    'id': fields.String(required=True, description='Class label identifier'),
+    'name': fields.String(required=True, description='Class label'),
+})
+
+labels_response = MAX_API.model('LabelsResponse', {
+    'count': fields.Integer(required=True,
+                            description='Number of class labels returned'),
+    'labels': fields.List(fields.Nested(model_label),
+                          description='Class labels that can be predicted by '
+                                      'the model')
+})
+
+model_wrapper = ModelWrapper()
+
+
+class ModelLabelsAPI(CustomMAXAPI):
+
+    @MAX_API.doc('labels')
+    @MAX_API.marshal_with(labels_response)
+    def get(self):
+        """Return the list of labels that can be predicted by the model"""
+        return {
+            'labels': model_wrapper.categories,
+            'count': len(model_wrapper.categories)
+        }
+
 
 input_parser = MAX_API.parser()
 input_parser.add_argument('image', type=FileStorage, location='files', required=True,
@@ -25,8 +53,6 @@ predict_response = MAX_API.model('ModelPredictResponse', {
 
 class ModelPredictAPI(PredictAPI):
 
-    model_wrapper = ModelWrapper()
-
     @MAX_API.doc('predict')
     @MAX_API.expect(input_parser)
     @MAX_API.marshal_with(predict_response)
@@ -37,8 +63,8 @@ class ModelPredictAPI(PredictAPI):
         args = input_parser.parse_args()
         threshold = args['threshold']
         image_data = args['image'].read()
-        image = self.model_wrapper._read_image(image_data)
-        label_preds = self.model_wrapper._predict(image, threshold)
+        image = model_wrapper._read_image(image_data)
+        label_preds = model_wrapper._predict(image, threshold)
 
         result['predictions'] = label_preds
         result['status'] = 'ok'
