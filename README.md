@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/IBM/MAX-Object-Detector.svg?branch=master)](https://travis-ci.com/IBM/MAX-Object-Detector) [![Website Status](https://img.shields.io/website/http/max-object-detector.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=demo+api)](http://max-object-detector.max.us-south.containers.appdomain.cloud/)
+[![Build Status](https://travis-ci.com/IBM/MAX-Object-Detector.svg?branch=master)](https://travis-ci.com/IBM/MAX-Object-Detector) [![Website Status](https://img.shields.io/website/http/max-object-detector.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-object-detector.max.us-south.containers.appdomain.cloud/)
 
 # IBM Developer Model Asset Exchange: Object Detector
 
