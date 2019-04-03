@@ -159,11 +159,23 @@ $ curl -F "image=@assets/dog-human.jpg" -XPOST http://127.0.0.1:5000/model/predi
 The optional `threshold` parameter is the minimum `probability` value for predicted labels returned by the model.
 The default value for `threshold` is `0.7`.
 
-### 4. Development
+### 4. Run the Notebook
+
+[The demo notebook](demo.ipynb) walks through how to use the model to detect objects in an image and visualize the results. By default, the notebook uses the [hosted demo instance](http://max-object-detector.max.us-south.containers.appdomain.cloud), but you can use a locally running instance (see the comments in Cell 3 for details). _Note_ the demo requires `jupyter`, `matplotlib`, `Pillow`, and `requests`.
+
+Run the following command from the model repo base folder, in a new terminal window:
+
+```
+$ jupyter notebook
+```
+
+This will start the notebook server. You can launch the demo notebook by clicking on `demo.ipynb`.
+
+### 5. Development
 
 To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` under the application settings. You will then need to rebuild the docker image (see [step 1](#1-build-the-model)).
 
-### 5. Cleanup
+### 6. Cleanup
 
 To stop the Docker container, type `CTRL` + `C` in your terminal.
 
