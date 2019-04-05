@@ -69,8 +69,9 @@ The model will be available internally at port `5000`, but can also be accessed 
 1. [Build the Model](#1-build-the-model)
 2. [Deploy the Model](#2-deploy-the-model)
 3. [Use the Model](#3-use-the-model)
-4. [Development](#4-development)
-5. [Cleanup](#5-cleanup)
+4. [Run the Notebook](#4-run-the-notebook)
+5. [Development](#4-development)
+6. [Cleanup](#5-cleanup)
 
 
 ### 1. Build the Model
