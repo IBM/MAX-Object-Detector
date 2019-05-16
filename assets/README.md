@@ -4,7 +4,7 @@
 
 Model files are from the [TensorFlow Object Detection Model](https://github.com/tensorflow/models/tree/master/research/object_detection), where they are available under an [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0). The protos and utils directories are taken from this repo and called as libraries.
 
-_Note_ the model files are hosted on [IBM Cloud Object Storage](http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/object_detection/ssd_mobilenet_v1_coco_2017_11_17.tar.gz).
+_Note_ the model files are hosted on [IBM Cloud Object Storage](http://max-assets.s3.us.cloud-object-storage.appdomain.cloud/object_detection/ssd_mobilenet_v1_coco_2017_11_17.tar.gz).
 
 ## Images
 
