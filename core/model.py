@@ -11,6 +11,7 @@ from config import PATH_TO_CKPT, PATH_TO_LABELS, NUM_CLASSES
 import sys
 sys.path.insert(0, '../')
 from utils import label_map_util
+from utils.ops import reframe_box_masks_to_image_masks
 
 logger = logging.getLogger()
 
@@ -77,10 +78,10 @@ class ModelWrapper(MAXModelWrapper):
                     real_num_detection = tf.cast(tensor_dict['num_detections'][0], tf.int32)
                     detection_boxes = tf.slice(detection_boxes, [0, 0], [real_num_detection, -1])
                     detection_masks = tf.slice(detection_masks, [0, 0, 0], [real_num_detection, -1, -1])
-                    detection_masks_reframed = utils_ops.reframe_box_masks_to_image_masks(detection_masks,
-                                                                                          detection_boxes,
-                                                                                          image.shape[0],
-                                                                                          image.shape[1])
+                    detection_masks_reframed = reframe_box_masks_to_image_masks(detection_masks,
+                                                                                detection_boxes,
+                                                                                image.shape[0],
+                                                                                image.shape[1])
                     detection_masks_reframed = tf.cast(tf.greater(detection_masks_reframed, 0.5), tf.uint8)
                     # Follow the convention by adding back the batch dimension
                     tensor_dict['detection_masks'] = tf.expand_dims(detection_masks_reframed, 0)
