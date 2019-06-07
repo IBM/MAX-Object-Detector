@@ -8,6 +8,7 @@ install:
 - docker run -it -d -p 5000:5000 max-object-detector
 - sleep 30
 before_script:
-- pip install pytest requests
+- pip install flake8 pytest requests
 script:
+- flake8 . --count --select=E9,F63,F72,F82 --show-source --statistics
 - pytest tests/test.py
