@@ -10,5 +10,5 @@ install:
 before_script:
 - pip install flake8 pytest requests
 script:
-- flake8 . --count --select=E9,F63,F72,F82 --show-source --statistics
+- flake8 . --max-line-length=127
 - pytest tests/test.py
