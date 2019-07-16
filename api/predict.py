@@ -53,7 +53,7 @@ label_prediction = MAX_API.model('LabelPrediction', {
 predict_response = MAX_API.model('ModelPredictResponse', {
     'status': fields.String(required=True, description='Response status message'),
     'predictions': fields.List(fields.Nested(label_prediction),
-                               description='Predicted class labels, probabilities and bounding box for each detected'
+                               description='Predicted class labels, probabilities and bounding box for each detected '
                                            'object')
 })
 
