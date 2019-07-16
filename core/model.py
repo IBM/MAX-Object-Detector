@@ -6,12 +6,7 @@ import io
 import numpy as np
 import logging
 from config import PATH_TO_CKPT, PATH_TO_LABELS, NUM_CLASSES
-
-
-# TODO maybe a better way to import this?
-import sys
-sys.path.insert(0, '../')
-from utils import label_map_util  # noqa
+from utils import label_map_util
 
 logger = logging.getLogger()
 
