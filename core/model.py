@@ -7,10 +7,11 @@ import numpy as np
 import logging
 from config import PATH_TO_CKPT, PATH_TO_LABELS, NUM_CLASSES
 
+
 # TODO maybe a better way to import this?
 import sys
 sys.path.insert(0, '../')
-from utils import label_map_util
+from utils import label_map_util  # noqa
 
 logger = logging.getLogger()
 
@@ -23,7 +24,7 @@ class ModelWrapper(MAXModelWrapper):
         logger.info('Loading model from: {}...'.format(model_file))
         detection_graph = tf.Graph()
         graph = tf.Graph()
-        sess = tf.Session(graph=detection_graph)
+        _ = tf.Session(graph=detection_graph)
         # load the graph ===
         # loading a (frozen) TensorFlow model into memory
 
@@ -77,7 +78,7 @@ class ModelWrapper(MAXModelWrapper):
                     real_num_detection = tf.cast(tensor_dict['num_detections'][0], tf.int32)
                     detection_boxes = tf.slice(detection_boxes, [0, 0], [real_num_detection, -1])
                     detection_masks = tf.slice(detection_masks, [0, 0, 0], [real_num_detection, -1, -1])
-                    detection_masks_reframed = utils_ops.reframe_box_masks_to_image_masks(detection_masks,
+                    detection_masks_reframed = utils_ops.reframe_box_masks_to_image_masks(detection_masks,  # noqa #TODO
                                                                                           detection_boxes,
                                                                                           image.shape[0],
                                                                                           image.shape[1])

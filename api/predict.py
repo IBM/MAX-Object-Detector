@@ -35,19 +35,26 @@ input_parser = MAX_API.parser()
 input_parser.add_argument('image', type=FileStorage, location='files', required=True,
                           help='An image file (encoded as PNG or JPG/JPEG)')
 input_parser.add_argument('threshold', type=float, default=0.7,
-                          help='Probability threshold for including a detected object in the response in the range [0, 1] (default: 0.7). Lowering the threshold includes objects the model is less certain about.')
+                          help='Probability threshold for including a detected object in the response in the range'
+                               '[0, 1] (default: 0.7). Lowering the threshold includes objects the model is less'
+                               'certain about.')
 
 
 label_prediction = MAX_API.model('LabelPrediction', {
     'label_id': fields.String(required=False, description='Class label identifier'),
     'label': fields.String(required=True, description='Class label'),
     'probability': fields.Float(required=True, description='Predicted probability for the class label'),
-    'detection_box': fields.List(fields.Float(required=True), description='Coordinates of the bounding box for detected object. Format is an array of normalized coordinates (ranging from 0 to 1) in the form [ymin, xmin, ymax, xmax].')
+    'detection_box': fields.List(fields.Float(required=True), description='Coordinates of the bounding box for detected'
+                                                                          'object. Format is an array of normalized'
+                                                                          'coordinates (ranging from 0 to 1) in the'
+                                                                          'form [ymin, xmin, ymax, xmax].')
 })
 
 predict_response = MAX_API.model('ModelPredictResponse', {
     'status': fields.String(required=True, description='Response status message'),
-    'predictions': fields.List(fields.Nested(label_prediction), description='Predicted class labels, probabilities and bounding box for each detected object')
+    'predictions': fields.List(fields.Nested(label_prediction),
+                               description='Predicted class labels, probabilities and bounding box for each detected'
+                                           'object')
 })
 
 
