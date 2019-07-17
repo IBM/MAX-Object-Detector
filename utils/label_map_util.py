@@ -19,10 +19,7 @@ import logging
 
 import tensorflow as tf
 from google.protobuf import text_format
-#TODO maybe a better way to do this?
-import sys
-sys.path.insert(0, '../')
-#from object_detection.protos import string_int_label_map_pb2
+# from object_detection.protos import string_int_label_map_pb2
 from protos import string_int_label_map_pb2
 
 

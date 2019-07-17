@@ -1,13 +1,14 @@
 language: python
 python:
-- 3.6
+  - 3.6
 services:
-- docker
+  - docker
 install:
-- docker build -t max-object-detector .
-- docker run -it -d -p 5000:5000 max-object-detector
-- sleep 30
+  - docker build -t max-object-detector .
+  - docker run -it -d --rm -p 5000:5000 max-object-detector
+  - pip install -r requirements-test.txt
 before_script:
-- pip install pytest requests
+  - flake8 . --max-line-length=127 --exclude utils/,protos/
+  - sleep 30
 script:
-- pytest tests/test.py
+  - pytest tests/test.py
