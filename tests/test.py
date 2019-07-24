@@ -33,7 +33,7 @@ def test_metadata():
 
 def test_predict():
     model_endpoint = 'http://localhost:5000/model/predict'
-    file_path = 'assets/baby-bear.jpg'
+    file_path = 'samples/baby-bear.jpg'
 
     with open(file_path, 'rb') as file:
         file_form = {'image': (file_path, file, 'image/jpeg')}
