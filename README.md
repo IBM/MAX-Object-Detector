@@ -1,10 +1,12 @@
 [![Build Status](https://travis-ci.com/IBM/MAX-Object-Detector.svg?branch=master)](https://travis-ci.com/IBM/MAX-Object-Detector) [![Website Status](https://img.shields.io/website/http/max-object-detector.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-object-detector.max.us-south.containers.appdomain.cloud/)
 
+[<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
+
 # IBM Developer Model Asset Exchange: Object Detector
 
 This repository contains code to instantiate and deploy an object detection model. This model recognizes the objects present in an image from the 80 different high-level classes of objects in the [COCO Dataset](http://mscoco.org/). The model consists of a deep convolutional net base model for image feature extraction, together with additional convolutional layers specialized for the task of object detection, that was trained on the COCO data set. The input to the model is an image, and the output is a list of estimated class probabilities for the objects detected in the image.
 
-The model is based on the [SSD Mobilenet V1 object detection model for TensorFlow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). The model files are hosted on [IBM Cloud Object Storage](https://max-assets.s3.us.cloud-object-storage.appdomain.cloud/object-detector/1.0/model.tar.gz). The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Code Model Asset Exchange](https://developer.ibm.com/code/exchanges/models/).
+The model is based on the [SSD Mobilenet V1 object detection model for TensorFlow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). The model files are hosted on [IBM Cloud Object Storage](https://max-assets.s3.us.cloud-object-storage.appdomain.cloud/object-detector/1.0/model.tar.gz). The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
 
 ## Model Metadata
 | Domain | Application | Industry  | Framework | Training Data | Input Data Format |
@@ -63,6 +65,8 @@ $ kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Object-Detector/mas
 ```
 
 The model will be available internally at port `5000`, but can also be accessed externally through the `NodePort`.
+
+A more elaborate tutorial on how to deploy this MAX model to production on [IBM Cloud](https://ibm.biz/Bdz2XM) can be found [here](http://ibm.biz/max-to-ibm-cloud-tutorial).
 
 ## Run Locally
 
