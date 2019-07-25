@@ -34,8 +34,8 @@ DEFAULT_MODEL_PATH = 'assets'
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 # Note:  This needs to be downloaded and/or compiled into pb format.
-PATH_TO_CKPT = '{}/{}/frozen_inference_graph.pb'.format(DEFAULT_MODEL_PATH, MODEL_NAME)
-PATH_TO_LABELS = '{}/{}/mscoco_label_map.pbtxt'.format(DEFAULT_MODEL_PATH, 'data')
+PATH_TO_CKPT = '{}/frozen_inference_graph.pb'.format(DEFAULT_MODEL_PATH)
+PATH_TO_LABELS = '{}/label_map.pbtxt'.format(DEFAULT_MODEL_PATH)
 NUM_CLASSES = 90
 
 # for image models, may not be required
