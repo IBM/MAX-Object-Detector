@@ -16,7 +16,7 @@
 
 FROM codait/max-base:v1.1.3
 
-ARG model_bucket=https://max-assets.s3.us.cloud-object-storage.appdomain.cloud/object-detector/1.0
+ARG model_bucket=https://max-assets-prod.s3.us-south.cloud-object-storage.appdomain.cloud/max-object-detector/1.0.0
 ARG model_file=model.tar.gz
 ARG data_file=data.tar.gz
 
