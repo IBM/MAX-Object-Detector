@@ -30,7 +30,7 @@ Y. Song, S. Guadarrama, K. Murphy_, ["Speed/accuracy trade-offs for modern convo
 | This repository | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [LICENSE](LICENSE) |
 | Model Weights | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [TensorFlow Models Repo](https://github.com/tensorflow/models/blob/master/LICENSE) |
 | Model Code (3rd party) |  [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [TensorFlow Models Repo](https://github.com/tensorflow/models/blob/master/LICENSE) |
-| Test assets | Various | [Asset README](assets/README.md) |
+| Test Samples | Various | [Samples README](samples/README.md) |
 
 ## Pre-requisites:
 
@@ -113,14 +113,14 @@ $ docker run -it -p 5000:5000 max-object-detector
 
 The API server automatically generates an interactive Swagger documentation page. Go to `http://localhost:5000` to load it. From there you can explore the API and also create test requests.
 
-Use the `model/predict` endpoint to load a test image (you can use one of the test images from the `assets` folder) and get predicted labels for the image from the API.  The coordinates of the bounding box are returned in the `detection_box` field, and contain the array of normalized coordinates (ranging from 0 to 1) in the form `[ymin, xmin, ymax, xmax]`.
+Use the `model/predict` endpoint to load a test image (you can use one of the test images from the `samples` folder) and get predicted labels for the image from the API.  The coordinates of the bounding box are returned in the `detection_box` field, and contain the array of normalized coordinates (ranging from 0 to 1) in the form `[ymin, xmin, ymax, xmax]`.
 
 ![Swagger Doc Screenshot](docs/swagger-screenshot.png)
 
 You can also test it on the command line, for example:
 
 ```
-$ curl -F "image=@assets/dog-human.jpg" -XPOST http://127.0.0.1:5000/model/predict
+$ curl -F "image=@samples/dog-human.jpg" -XPOST http://127.0.0.1:5000/model/predict
 ```
 
 You should see a JSON response like that below:
@@ -158,7 +158,7 @@ You should see a JSON response like that below:
 You can also control the probability threshold for what objects are returned using the `threshold` argument like below:
 
 ```
-$ curl -F "image=@assets/dog-human.jpg" -XPOST http://127.0.0.1:5000/model/predict?threshold=0.5
+$ curl -F "image=@samples/dog-human.jpg" -XPOST http://127.0.0.1:5000/model/predict?threshold=0.5
 ```
 
 The optional `threshold` parameter is the minimum `probability` value for predicted labels returned by the model.
