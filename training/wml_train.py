@@ -564,7 +564,8 @@ else:
 #
 
 print('Checking model training status every {} seconds.'
-      ' Press Ctrl+C to terminate monitoring.'
+      ' Press Ctrl+C once to stop monitoring or '
+      ' press Ctrl+C twice to cancel training.'
       .format(config['training_progress_monitoring_interval']))
 print('Status - (p)ending (r)unning (e)rror (c)ompleted or canceled:')
 
