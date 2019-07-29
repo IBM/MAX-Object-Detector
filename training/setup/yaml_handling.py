@@ -49,12 +49,15 @@ class YAMLHandler:
         `False` if file upload fails.
         """
         file_count = 0
+        ignore_list = [(os.path.join(path, 'README.md'))]
         if (self.cfg_key_prefix != '' or self.cfg_key_prefix
                 is not None):
             key_prefix = self.cfg_key_prefix
         else:
             key_prefix = None
         for file in glob.iglob(path + '/**/*', recursive=True):
+            if file in ignore_list:
+                continue
             if os.path.isfile(file):
                 print(' [MESSAGE] Uploading "{}" to training data bucket '
                       '"{}" ...'.format(file, bucket_name))

@@ -32,6 +32,8 @@ Open a terminal window, change dir into `$MODEL_REPO_HOME_DIR/training` and inst
    $ pip install -r requirements.txt
     ... 
    ```
+   
+To test the model training process, use data from `/sample_training_data` and skip data preparation step.
 
 ### Run the Setup Script
 

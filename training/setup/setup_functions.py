@@ -29,7 +29,7 @@ class InstanceHandler:
             self.data = json.load(config_file)
 
     def get_instance_details(self, response, which_resource,
-                             inter_list, count, display_count):
+                             inter_list, count):
         """
         Get details of the available instances.
         :param response: response from the request
@@ -37,16 +37,10 @@ class InstanceHandler:
         :param inter_list: intermediate list holding details about
                            the resources.
         :param count: number of resources retrieved.
-        :param display_count: total count
-        :param display_count: Counter for checking number of
-                              retrieved instances.
         :return: intermediate list and resources count.
         """
         for index, value in enumerate(response['resources'], start=1):
             # check instances under the specified resource
-            display_count += 1
-            print('\r Loading...... %d' % display_count, end='')
-            sys.stdout.flush()
             for index_1, plan in \
                     enumerate(value['plan_history'], start=1):
                 for key, values in \
@@ -56,7 +50,7 @@ class InstanceHandler:
                         inter_list.append([count, value['name'],
                                            value['region_id'],
                                            values[0], value['guid']])
-        return inter_list, count, display_count
+        return inter_list, count
 
     def available_instance(self, which_resource, resource_group_id): # noqa
         """
@@ -100,15 +94,13 @@ class InstanceHandler:
             # list to append existing guids
             existing_guids = []
             count = 0
-            display_count = 0
             next_page_flag = 'N'
             inter_list = []
-            inter_list, count, display_count = \
+            inter_list, count = \
                 self.get_instance_details(response,
                                           which_resource,
                                           inter_list,
-                                          count,
-                                          display_count)
+                                          count)
             # retrieve instances available under
             if response['next_url'] is not None:
                 next_page_flag = 'Y'
@@ -122,16 +114,14 @@ class InstanceHandler:
                                             headers=headers)
                     if response.status_code == 200:
                         response = response.json()
-                        inter_list, count, display_count = \
+                        inter_list, count = \
                             self.get_instance_details(response,
                                                       which_resource,
                                                       inter_list,
-                                                      count,
-                                                      display_count)
+                                                      count)
                         if response['next_url'] is None:
                             next_page_flag = 'N'
             inter_list.sort(key=lambda x: x[1].casefold())
-            print('')
             for list_index, list_val in enumerate(inter_list, start=1):
                 print("{:2d}. Instance Name: {}   |  "
                       "Instance Location: {}  | "
@@ -172,35 +162,24 @@ class InstanceHandler:
             print("[DEBUG] Reason for failure:", response.reason)
             sys.exit()
 
-    def wml_key_details(self, available_keys, instance_guid, count,
-                        inter_wml_list, display_count):
+    def wml_key_details(self, available_keys, count,
+                        inter_wml_list):
         """
         Get details of the WML keys matching guid of the instance.
         :param available_keys: response from the request
-        :param instance_guid: guid of the instance.
         :param count: count to track number of retrieved keys
                       under the selected instance.
-        :param inter_wml_list: intermediate list holding details of the
-                               wml keys retrieved.
-        :param display_count: Counter for checking number of
-                              retrieved keys.
+        :param inter_wml_list: intermediate list holding details of
+                               the key retrieved.
         :return: intermediate list and count
         """
         for index, key in enumerate(available_keys['resources'], start=1):
-            display_count += 1
-            print('\r Loading...... %d' % display_count, end='')
-            sys.stdout.flush()
-            try:
-                # Check if provided instance guid matches with current
-                if key['credentials']['instance_id'] == instance_guid:
-                    count += 1
-                    inter_wml_list.append([count, key['name'], key['guid']])
-            except KeyError:
-                continue
-        return inter_wml_list, count, display_count
+            count += 1
+            inter_wml_list.append([count, key['name'], key['guid']])
 
-    def wml_key_check(self, instance_guid, resource_group_id,
-                      which_resource): # noqa
+        return inter_wml_list, count
+
+    def wml_key_check(self, instance_guid): # noqa
         """
         This function:
         1. Retrieves list of keys under provided instance guid.
@@ -208,27 +187,17 @@ class InstanceHandler:
            keys or create new key
         :param instance_guid: guid of instance under
                which presence of keys need to be searched.
-        :param resource_group_id: id of the selected resource.
-        :param which_resource: under which resource key needs to be
-                               searched.
         :return: list of existing keys, guid of keys and user
                choice. Exit when error occurs in key retrieval request.
         """
-        if which_resource == 'wml':
-            resource_id = self.data['resource-id']['wml']
-        elif which_resource == 'cos':
-            resource_id = self.data['resource-id']['cos']
-        resource_param = {
-            "resource_group_id": resource_group_id,
-            "resource_id": resource_id
-        }
         headers = {
             'Authorization': self.iam_access_token,
         }
         available_keys = requests.get("https://resource-controller.cloud."
-                                      "ibm.com/v2/resource_keys",
-                                      headers=headers,
-                                      params=resource_param)
+                                      "ibm.com/v2/resource_instances/"
+                                      + instance_guid +
+                                      "/resource_keys",
+                                      headers=headers)
         if available_keys.status_code == 200:
             available_keys = available_keys.json()
             # list for storing existing keys and list
@@ -236,14 +205,11 @@ class InstanceHandler:
             existing_keys_guid = []
             inter_wml_list = []
             count = 0
-            display_count = 0
             next_page_flag = 'N'
-            inter_wml_list, count, display_count = \
+            inter_wml_list, count = \
                 self.wml_key_details(available_keys,
-                                     instance_guid, count,
-                                     inter_wml_list,
-                                     display_count
-                                     )
+                                     count,
+                                     inter_wml_list)
             if available_keys['next_url'] is not None:
                 next_page_flag = 'Y'
             while True:
@@ -254,20 +220,17 @@ class InstanceHandler:
                                                   "controller.cloud.ibm"
                                                   ".com" +
                                                   available_keys['next_url'],
-                                                  headers=headers,
-                                                  params=resource_param)
+                                                  headers=headers)
                     if available_keys.status_code == 200:
                         available_keys = available_keys.json()
-                        inter_wml_list, count, display_count = \
+                        inter_wml_list, count = \
                             self.wml_key_details(available_keys,
-                                                 instance_guid, count,
-                                                 inter_wml_list,
-                                                 display_count)
+                                                 count,
+                                                 inter_wml_list)
                         if available_keys['next_url'] is None:
                             next_page_flag = 'N'
 
             inter_wml_list.sort(key=lambda x: x[1].casefold())
-            print('')
             for list_index, list_val in enumerate(inter_wml_list, start=1):
                 print("{:2d}. Key Name: {} ".format(list_index, list_val[1]))
                 existing_keys.append(list_val[1])
@@ -295,37 +258,24 @@ class InstanceHandler:
             print("[DEBUG] Reason for failure:", available_keys.reason)
             sys.exit()
 
-    def cos_key_details(self, available_keys, instance_guid,
-                        inter_cos_list, count, display_count):
+    def cos_key_details(self, available_keys,
+                        inter_cos_list, count):
         """
         Get details of the COS keys matching guid of the instance.
         :param available_keys: response from the request
-        :param instance_guid: guid of the instance.
         :param inter_cos_list: intermediate list holding details of
                                the key retrieved.
         :param count: count to track number of retrieved keys
                       under the selected instance.
-        :param display_count: Counter for checking number of
-                              retrieved keys.
         :return: intermediate list and count
         """
         for index, k in enumerate(available_keys['resources'], start=1):
-            display_count += 1
-            print('\r Loading...... %d' % display_count, end='')
-            sys.stdout.flush()
-            try:
-                if k['resource_instance_url'] is not None:
-                    # Check if provided instance guid matches with current
-                    instance_id = k['resource_instance_url'].split('/')[-1]
-                    if instance_id == instance_guid:
-                        count += 1
-                        inter_cos_list.append([count, k['name'], k['guid']])
-            except KeyError:
-                continue
-        return inter_cos_list, count, display_count
+            count += 1
+            inter_cos_list.append([count, k['name'], k['guid']])
 
-    def cos_key_check(self, instance_guid, resource_group_id,
-                      which_resource): # noqa
+        return inter_cos_list, count
+
+    def cos_key_check(self, instance_guid): # noqa
         """
         This function:
         1. Retrieves list of keys under
@@ -334,27 +284,17 @@ class InstanceHandler:
            keys or create new key
         :param instance_guid: guid of instance under which
                presence of keys need to be searched.
-        :param resource_group_id: id of the selected resource.
-        :param which_resource: under which resource key needs to be
-                               searched.
         :return: list of existing keys, guid of keys and user
                choice. Exit when error occurs in key retrieval request.
         """
-        if which_resource == 'wml':
-            resource_id = self.data['resource-id']['wml']
-        elif which_resource == 'cos':
-            resource_id = self.data['resource-id']['cos']
-        resource_param = {
-            "resource_group_id": resource_group_id,
-            "resource_id": resource_id
-        }
         headers = {
             'Authorization': self.iam_access_token,
         }
         available_keys = requests.get("https://resource-controller."
-                                      "cloud.ibm.com/v2/resource_keys",
-                                      headers=headers,
-                                      params=resource_param)
+                                      "cloud.ibm.com/v2/resource_instances/"
+                                      + instance_guid +
+                                      "/resource_keys",
+                                      headers=headers)
         if available_keys.status_code == 200:
             available_keys = available_keys.json()
             # list for storing existing keys and list
@@ -362,12 +302,10 @@ class InstanceHandler:
             existing_keys_guid = []
             inter_cos_list = []
             count = 0
-            display_count = 0
             next_page_flag = 'N'
-            inter_cos_list, count, display_count = \
-                self.cos_key_details(available_keys, instance_guid,
-                                     inter_cos_list, count,
-                                     display_count)
+            inter_cos_list, count = \
+                self.cos_key_details(available_keys,
+                                     inter_cos_list, count)
             if available_keys['next_url'] is not None:
                 next_page_flag = 'Y'
             while True:
@@ -381,14 +319,12 @@ class InstanceHandler:
                                                   headers=headers)
                     if available_keys.status_code == 200:
                         available_keys = available_keys.json()
-                        inter_cos_list, count, display_count = \
-                            self.cos_key_details(available_keys, instance_guid,
-                                                 inter_cos_list, count,
-                                                 display_count)
+                        inter_cos_list, count = \
+                            self.cos_key_details(available_keys,
+                                                 inter_cos_list, count)
                         if available_keys['next_url'] is None:
                             next_page_flag = 'N'
             inter_cos_list.sort(key=lambda x: x[1].casefold())
-            print('')
             for list_index, list_val in enumerate(inter_cos_list, start=1):
                 print("{:2d}. Key Name: {} ".format(list_index, list_val[1]))
                 existing_keys.append(list_val[1])

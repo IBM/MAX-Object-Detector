@@ -124,8 +124,7 @@ class MainHandler:
             # Get existing keys and their guid.
             existing_keys, key_option, existing_key_guid = \
                 self.ins_handle.wml_key_check(
-                    existing_guids[int(instance_option) - 1],
-                    self.resource_id, 'wml')
+                    existing_guids[int(instance_option) - 1])
             if existing_keys[int(key_option) - 1] == 'Create New Key':
                 print('-------------------------------------------------'
                       '-----------------------------')
@@ -258,8 +257,7 @@ class MainHandler:
             # Get existing keys and their guid.
             existing_keys, key_option, existing_key_guid = \
                 self.ins_handle.cos_key_check(
-                    existing_guids[int(instance_option) - 1],
-                    self.resource_id, 'cos')
+                    existing_guids[int(instance_option) - 1])
             if existing_keys[int(key_option) - 1] == 'Create New Key':
                 print('------------------------------------------------'
                       '------------------------------')
