@@ -41,7 +41,7 @@ COPY . /workspace
 
 RUN if [ "$use_pre_trained_model" = "false" ] ; then \
       # rename the directory that contains the custom-trained model artifacts
-      mv /workspace/custom_assets/* /workspace/assets;
+      mv /workspace/custom_assets/* /workspace/assets; \
     fi
 
 EXPOSE 5000
