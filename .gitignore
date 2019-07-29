@@ -1,6 +1,7 @@
 training/training_output/
 *-model-building-code.zip
 .DS_store
+custom_assets/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

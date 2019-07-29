@@ -39,16 +39,10 @@ RUN pip install -r requirements.txt
 
 COPY . /workspace
 
-RUN cd /workspace/custom_assets && ls
-
 RUN if [ "$use_pre_trained_model" = "false" ] ; then \
       # rename the directory that contains the custom-trained model artifacts
-      mv /workspace/custom_assets/* /workspace/assets && \
-      cd /workspace/assets && ls; \
+      mv /workspace/custom_assets/* /workspace/assets;
     fi
-
-# check file integrity
-#RUN md5sum -c md5sums.tx
 
 EXPOSE 5000
 
