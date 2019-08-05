@@ -90,8 +90,7 @@ class WMLWrapper:
 
     def __init__(self,
                  url,
-                 username,
-                 password,
+                 api_key,
                  instance_id):
         """
         Initializer
@@ -101,8 +100,7 @@ class WMLWrapper:
         try:
             self.client = WatsonMachineLearningAPIClient({
                             'url': url,
-                            'username': username,
-                            'password': password,
+                            'apikey': api_key,
                             'instance_id': instance_id
                             })
             self.client.service_instance.get_details()

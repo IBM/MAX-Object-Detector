@@ -20,13 +20,13 @@ train:
       model_training_results:
             trained_model:
                   data_store: cloud_training_datastore
-                  bucket: object-detector-output
+                  bucket: out-testing-aug1
             trained_model_local:
                   path: ../custom_assets/
       data_source:
             training_data:
                   data_store: cloud_training_datastore
-                  bucket: object-detector-input
+                  bucket: inp-testing-aug1
                   path:
             training_data_local:
                   path: sample_training_data/

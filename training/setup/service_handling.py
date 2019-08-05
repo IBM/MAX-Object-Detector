@@ -217,8 +217,8 @@ class ServiceHandler:
         Create Watson Machine Learning key
         :param wml_key_name: new WML key name to be created
         :param wml_instance_guid: wml instance guid
-        :return: WML username, password, key instance_id and
-        password. Exit on error in key creation.
+        :return: WML apikey, url and instance_id.
+                 Exit on error in key creation.
         """
         headers = {
             'Authorization': self.iam_access_token,
@@ -236,8 +236,7 @@ class ServiceHandler:
             wml_key_response = wml_key_response.json()
             print("[MESSAGE] Service credentials named '{}' have been "
                   "created.".format(wml_key_response['name']))
-            return wml_key_response['credentials']['username'], \
-                wml_key_response['credentials']['password'], \
+            return wml_key_response['credentials']['apikey'], \
                 wml_key_response['credentials']['instance_id'], \
                 wml_key_response['credentials']['url']
         else:

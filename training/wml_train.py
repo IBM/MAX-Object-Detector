@@ -142,7 +142,7 @@ def verify_env_settings():
     print_banner('Checking environment variables ...')
     var_missing = False
     # WML environment variables
-    for var_name in ['ML_ENV', 'ML_USERNAME', 'ML_PASSWORD', 'ML_INSTANCE']:
+    for var_name in ['ML_ENV', 'ML_APIKEY', 'ML_INSTANCE']:
         if os.environ.get(var_name) is None:
             print(' Error. Environment variable {} is not defined.'
                   .format(var_name))
@@ -212,8 +212,7 @@ if cmd_parameters['command'] == 'package' and training_guid is not None:
     try:
         # instantiate Watson Machine Learning wrapper
         w = WMLWrapper(os.environ['ML_ENV'],
-                       os.environ['ML_USERNAME'],
-                       os.environ['ML_PASSWORD'],
+                       os.environ['ML_APIKEY'],
                        os.environ['ML_INSTANCE'])
 
         # verify that the provided training id is valid
@@ -479,8 +478,7 @@ else:
     try:
         # instantiate the WML client
         w = WMLWrapper(os.environ['ML_ENV'],
-                       os.environ['ML_USERNAME'],
-                       os.environ['ML_PASSWORD'],
+                       os.environ['ML_APIKEY'],
                        os.environ['ML_INSTANCE'])
     except WMLWrapperError as wmle:
         print(wmle)

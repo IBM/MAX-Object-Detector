@@ -145,8 +145,8 @@ def yaml_handle(read_flag, input_bucket_name, local_directory,
         sys.exit()
 
 
-def env_extract(access_key, secret_access_key, username,
-                password, instance_id, url):
+def env_extract(access_key, secret_access_key, apikey,
+                instance_id, url):
     """
     This function:
     1. Extract current configuration values from the YAML file.
@@ -158,8 +158,7 @@ def env_extract(access_key, secret_access_key, username,
     for initiating training process.
     :param access_key: cloud object storage access key.
     :param secret_access_key: cloud object storage secret access key
-    :param username: watson machine learning username
-    :param password: watson machine learning password
+    :param apikey: watson machine learning apikey
     :param instance_id: watson machine learning instance id
     :param url: watson machine learning url
 
@@ -204,8 +203,7 @@ def env_extract(access_key, secret_access_key, username,
 *-----------------------------------------------------------------------------*
 
 1. Update or set the following environment variables:
-    ML_USERNAME={}
-    ML_PASSWORD={}
+    ML_APIKEY={}
     ML_INSTANCE={}
     ML_ENV={}
     AWS_ACCESS_KEY_ID={}
@@ -214,8 +212,7 @@ def env_extract(access_key, secret_access_key, username,
 2. Run `python wml_train.py {} prepare` to verify your setup.
 
 3. Run `python wml_train.py {} package` to train the model using your data.
-        """.format(username,
-                   password,
+        """.format(apikey,
                    instance_id,
                    url,
                    access_key,
@@ -256,7 +253,7 @@ cos_env_check_flag = 'Y'
 # Change setting flag
 change_setting_flag = 'N'
 # Checking WML environment variables
-for env_var in ['ML_ENV', 'ML_USERNAME', 'ML_PASSWORD', 'ML_INSTANCE']:
+for env_var in ['ML_ENV', 'ML_APIKEY', 'ML_INSTANCE']:
     if os.environ.get(env_var) is None:
         wml_env_check_flag = 'N'
 if wml_env_check_flag == 'N':
@@ -308,12 +305,11 @@ if cos_env_check_flag == 'Y' and wml_env_check_flag == 'Y':
         print('[MESSAGE] Proceeding with current settings.....')
         access_key = os.environ['AWS_ACCESS_KEY_ID']
         secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-        username = os.environ['ML_USERNAME']
-        password = os.environ['ML_PASSWORD']
+        wml_apikey = os.environ['ML_APIKEY']
         instance_id = os.environ['ML_INSTANCE']
         url = os.environ['ML_ENV']
         # update configuration values
-        env_extract(access_key, secret_access_key, username, password,
+        env_extract(access_key, secret_access_key, wml_apikey,
                     instance_id, url)
     # Steps for option 2: User wants to change the current settings.
     if user_option == '2':
@@ -496,7 +492,7 @@ if cos_env_check_flag == 'N' or wml_env_check_flag == 'N':  # noqa
     if option == 'both':
         try:
             # Retrieving WML details
-            username, password, instance_id, url = main_handle.wml_block()
+            wml_apikey, instance_id, url = main_handle.wml_block()
         except KeyError as ex:
             print(type(ex), '::', ex)
             sys.exit()
@@ -508,20 +504,20 @@ if cos_env_check_flag == 'N' or wml_env_check_flag == 'N':  # noqa
             print(type(ex), '::', ex)
             sys.exit()
         # Updating config YAML file
-        env_extract(access_key, secret_access_key, username, password,
+        env_extract(access_key, secret_access_key, wml_apikey,
                     instance_id, url)
         sys.exit()
     # steps for configuring only WML
     if option == 'wml':
         try:
             # Retrieving WML details
-            username, password, instance_id, url = main_handle.wml_block()
+            wml_apikey, instance_id, url = main_handle.wml_block()
         except KeyError:
             print("[DEBUG] Error in key retrieval details")
             sys.exit()
         access_key = os.environ['AWS_ACCESS_KEY_ID']
         secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-        env_extract(access_key, secret_access_key, username, password,
+        env_extract(access_key, secret_access_key, wml_apikey,
                     instance_id, url)
         sys.exit()
     # steps for configuring only COS
@@ -533,10 +529,9 @@ if cos_env_check_flag == 'N' or wml_env_check_flag == 'N':  # noqa
             print("Error in creating new COS key and retrieving details")
             sys.exit()
         print('***** Cloud Object Storage setting has been completed *****')
-        username = os.environ['ML_USERNAME']
-        password = os.environ['ML_PASSWORD']
+        wml_apikey = os.environ['ML_APIKEY']
         instance_id = os.environ['ML_INSTANCE']
         url = os.environ['ML_ENV']
-        env_extract(access_key, secret_access_key, username, password,
+        env_extract(access_key, secret_access_key, wml_apikey,
                     instance_id, url)
         sys.exit()

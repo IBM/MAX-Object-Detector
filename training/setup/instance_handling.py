@@ -41,7 +41,7 @@ class MainHandler:
         2. Create new WML instance and key if desired.
         3. Use existing instance and key if chosen.
         4. Use existing instance and create a new key, if chosen.
-        :return: WML environment variables such as username, password,
+        :return: WML environment variables such as apikey,
                  url and instance id.
         """
         headers = {
@@ -99,9 +99,9 @@ class MainHandler:
                 else:
                     break
             # WML key creation using user and credential retrieval
-            username, password, instance_id, url = \
+            wml_apikey, instance_id, url = \
                 self.ins_obj.wml_key_create(wml_key_name, wml_instance_guid)
-            return username, password, instance_id, url
+            return wml_apikey, instance_id, url
         else:
             print("[MESSAGE] Using existing service instance '{}'. "
                   .format(existing_instances[int(instance_option) - 1]))
@@ -143,10 +143,10 @@ class MainHandler:
                     else:
                         break
                 # WML Key creation and credential retrieval
-                username, password, instance_id, url = \
+                wml_apikey, instance_id, url = \
                     self.ins_obj.wml_key_create(
                         wml_key, existing_guids[int(instance_option) - 1])
-                return username, password, instance_id, url
+                return wml_apikey, instance_id, url
             else:
                 print("[MESSAGE] Using existing Watson Machine Learning "
                       "service credentials '{}'. "
@@ -161,15 +161,13 @@ class MainHandler:
                     try:
                         # Extract necessary environment variables from the
                         # credentials.
-                        username = \
-                            wml_key_details['credentials']['username']
-                        password = \
-                            wml_key_details['credentials']['password']
+                        wml_apikey = \
+                            wml_key_details['credentials']['apikey']
                         instance_id = \
                             wml_key_details['credentials']['instance_id']
                         url = \
                             wml_key_details['credentials']['url']
-                        return username, password, instance_id, url
+                        return wml_apikey, instance_id, url
                     except KeyError:
                         print(''''  ERROR !!!!    ''')
                         raise KeyError("Choose appropriate Cloud Object "
