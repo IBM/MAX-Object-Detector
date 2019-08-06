@@ -63,3 +63,4 @@ for fp in Path('sample_training_data/').glob('**/*'):
         cw.upload_file(file_name=fp,
                        bucket_name=os.environ.get('COS_INPUT_BUCKET'),
                        key_name=fp.replace('sample_training_data/', ''))
+#

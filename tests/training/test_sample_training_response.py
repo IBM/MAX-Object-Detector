@@ -61,10 +61,9 @@ def test_predict():
     assert response['status'] == 'ok'
 
     #  Teddy Bear
-    #assert response['predictions'][0]['label_id'] == '88'
+    # assert response['predictions'][0]['label_id'] == '88'
     assert response['predictions'][0]['label'] == 'toy'
-    #assert response['predictions'][0]['probability'] > 0.95
-
+    # assert response['predictions'][0]['probability'] > 0.95
 
 
 if __name__ == '__main__':
