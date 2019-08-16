@@ -119,12 +119,11 @@ def convert_label_map_to_categories(label_map,
 
 def load_labelmap(path):
     """Loads label map proto.
-
-  Args:
-    path: path to StringIntLabelMap proto text file.
-  Returns:
-    a StringIntLabelMapProto
-  """
+    Args:
+      path: path to StringIntLabelMap proto text file.
+    Returns:
+      a StringIntLabelMapProto
+    """
     with tf.gfile.GFile(path, 'r') as fid:
         label_map_string = fid.read()
         label_map = string_int_label_map_pb2.StringIntLabelMap()
@@ -139,13 +138,13 @@ def load_labelmap(path):
 def get_label_map_dict(label_map_path, use_display_name=False):
     """Reads a label map and returns a dictionary of label names to id.
 
-  Args:
-    label_map_path: path to label_map.
-    use_display_name: whether to use the label map items' display names as keys.
+    Args:
+      label_map_path: path to label_map.
+      use_display_name: whether to use the label map items' display names as keys.
 
-  Returns:
-    A dictionary mapping label names to id.
-  """
+    Returns:
+      A dictionary mapping label names to id.
+    """
     label_map = load_labelmap(label_map_path)
     label_map_dict = {}
     for item in label_map.item:
@@ -159,14 +158,14 @@ def get_label_map_dict(label_map_path, use_display_name=False):
 def create_category_index_from_labelmap(label_map_path):
     """Reads a label map and returns a category index.
 
-  Args:
-    label_map_path: Path to `StringIntLabelMap` proto text file.
+    Args:
+      label_map_path: Path to `StringIntLabelMap` proto text file.
 
-  Returns:
-    A category index, which is a dictionary that maps integer ids to dicts
-    containing categories, e.g.
-    {1: {'id': 1, 'name': 'dog'}, 2: {'id': 2, 'name': 'cat'}, ...}
-  """
+    Returns:
+      A category index, which is a dictionary that maps integer ids to dicts
+      containing categories, e.g.
+      {1: {'id': 1, 'name': 'dog'}, 2: {'id': 2, 'name': 'cat'}, ...}
+    """
     label_map = load_labelmap(label_map_path)
     max_num_classes = max(item.id for item in label_map.item)
     categories = convert_label_map_to_categories(label_map, max_num_classes)
