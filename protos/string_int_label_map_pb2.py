@@ -2,27 +2,23 @@
 # source: object_detection/protos/string_int_label_map.proto
 
 import sys
-_b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
+_b = sys.version_info[0] < 3 and (lambda x: x) or (lambda x: x.encode('latin1'))
+
 _sym_db = _symbol_database.Default()
-
-
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection/protos/string_int_label_map.proto',
   package='object_detection.protos',
   syntax='proto2',
-  serialized_pb=_b('\n2object_detection/protos/string_int_label_map.proto\x12\x17object_detection.protos\"G\n\x15StringIntLabelMapItem\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x14\n\x0c\x64isplay_name\x18\x03 \x01(\t\"Q\n\x11StringIntLabelMap\x12<\n\x04item\x18\x01 \x03(\x0b\x32..object_detection.protos.StringIntLabelMapItem')
+  serialized_pb=_b('\n2object_detection/protos/string_int_label_map.proto\x12\x17object_detection.protos\"G\n\x15StringIntLabelMapItem\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x14\n\x0c\x64isplay_name\x18\x03 \x01(\t\"Q\n\x11StringIntLabelMap\x12<\n\x04item\x18\x01 \x03(\x0b\x32..object_detection.protos.StringIntLabelMapItem')  # noqa (line length)
 )
-
-
 
 
 _STRINGINTLABELMAPITEM = _descriptor.Descriptor(
@@ -106,15 +102,15 @@ DESCRIPTOR.message_types_by_name['StringIntLabelMap'] = _STRINGINTLABELMAP
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StringIntLabelMapItem = _reflection.GeneratedProtocolMessageType('StringIntLabelMapItem', (_message.Message,), dict(
-  DESCRIPTOR = _STRINGINTLABELMAPITEM,
-  __module__ = 'object_detection.protos.string_int_label_map_pb2'
+  DESCRIPTOR=_STRINGINTLABELMAPITEM,
+  __module__='object_detection.protos.string_int_label_map_pb2'
   # @@protoc_insertion_point(class_scope:object_detection.protos.StringIntLabelMapItem)
   ))
 _sym_db.RegisterMessage(StringIntLabelMapItem)
 
 StringIntLabelMap = _reflection.GeneratedProtocolMessageType('StringIntLabelMap', (_message.Message,), dict(
-  DESCRIPTOR = _STRINGINTLABELMAP,
-  __module__ = 'object_detection.protos.string_int_label_map_pb2'
+  DESCRIPTOR=_STRINGINTLABELMAP,
+  __module__='object_detection.protos.string_int_label_map_pb2'
   # @@protoc_insertion_point(class_scope:object_detection.protos.StringIntLabelMap)
   ))
 _sym_db.RegisterMessage(StringIntLabelMap)

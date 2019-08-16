@@ -8,7 +8,7 @@ install:
   - docker run -it -d --rm -p 5000:5000 max-object-detector
   - pip install -r requirements-test.txt
 before_script:
-  - flake8 . --max-line-length=127 --exclude utils/,protos/
+  - flake8 . --max-line-length=127
   - sleep 30
 script:
   - pytest tests/test.py
