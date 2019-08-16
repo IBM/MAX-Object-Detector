@@ -25,12 +25,12 @@ from protos import string_int_label_map_pb2
 def _validate_label_map(label_map):
     """Checks if a label map is valid.
 
-  Args:
-    label_map: StringIntLabelMap to validate.
+    Args:
+      label_map: StringIntLabelMap to validate.
 
-  Raises:
-    ValueError: if label map is invalid.
-  """
+    Raises:
+      ValueError: if label map is invalid.
+    """
     for item in label_map.item:
         if item.id < 1:
             raise ValueError('Label map ids should be >= 1.')
@@ -39,16 +39,16 @@ def _validate_label_map(label_map):
 def create_category_index(categories):
     """Creates dictionary of COCO compatible categories keyed by category id.
 
-  Args:
-    categories: a list of dicts, each of which has the following keys:
-      'id': (required) an integer id uniquely identifying this category.
-      'name': (required) string representing category name
-        e.g., 'cat', 'dog', 'pizza'.
+    Args:
+      categories: a list of dicts, each of which has the following keys:
+        'id': (required) an integer id uniquely identifying this category.
+        'name': (required) string representing category name
+          e.g., 'cat', 'dog', 'pizza'.
 
-  Returns:
-    category_index: a dict containing the same entries as categories, but keyed
-      by the 'id' field of each category.
-  """
+    Returns:
+      category_index: a dict containing the same entries as categories, but keyed
+        by the 'id' field of each category.
+    """
     category_index = {}
     for cat in categories:
         category_index[cat['id']] = cat
@@ -58,12 +58,12 @@ def create_category_index(categories):
 def get_max_label_map_index(label_map):
     """Get maximum index in label map.
 
-  Args:
-    label_map: a StringIntLabelMapProto
+    Args:
+      label_map: a StringIntLabelMapProto
 
-  Returns:
-    an integer
-  """
+    Returns:
+      an integer
+    """
     return max([item.id for item in label_map.item])
 
 
@@ -72,26 +72,26 @@ def convert_label_map_to_categories(label_map,
                                     use_display_name=True):
     """Loads label map proto and returns categories list compatible with eval.
 
-  This function loads a label map and returns a list of dicts, each of which
-  has the following keys:
-    'id': (required) an integer id uniquely identifying this category.
-    'name': (required) string representing category name
-      e.g., 'cat', 'dog', 'pizza'.
-  We only allow class into the list if its id-label_id_offset is
-  between 0 (inclusive) and max_num_classes (exclusive).
-  If there are several items mapping to the same id in the label map,
-  we will only keep the first one in the categories list.
+    This function loads a label map and returns a list of dicts, each of which
+    has the following keys:
+      'id': (required) an integer id uniquely identifying this category.
+      'name': (required) string representing category name
+        e.g., 'cat', 'dog', 'pizza'.
+    We only allow class into the list if its id-label_id_offset is
+    between 0 (inclusive) and max_num_classes (exclusive).
+    If there are several items mapping to the same id in the label map,
+    we will only keep the first one in the categories list.
 
-  Args:
-    label_map: a StringIntLabelMapProto or None.  If None, a default categories
-      list is created with max_num_classes categories.
-    max_num_classes: maximum number of (consecutive) label indices to include.
-    use_display_name: (boolean) choose whether to load 'display_name' field
-      as category name.  If False or if the display_name field does not exist,
-      uses 'name' field as category names instead.
-  Returns:
-    categories: a list of dictionaries representing all possible categories.
-  """
+    Args:
+      label_map: a StringIntLabelMapProto or None.  If None, a default categories
+        list is created with max_num_classes categories.
+      max_num_classes: maximum number of (consecutive) label indices to include.
+      use_display_name: (boolean) choose whether to load 'display_name' field
+        as category name.  If False or if the display_name field does not exist,
+        uses 'name' field as category names instead.
+    Returns:
+      categories: a list of dictionaries representing all possible categories.
+    """
     categories = []
     list_of_ids_already_added = []
     if not label_map:
