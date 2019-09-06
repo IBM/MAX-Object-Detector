@@ -20,10 +20,15 @@
 
 import os
 import glob
-from pathlib import Path
 
+import ibm_boto3
 from ruamel.yaml import YAML
-from utils.cos import COSWrapper
+
+# verify that the environment variables are defined
+assert 'COS_INPUT_BUCKET' in os.environ, 'Environment variable `COS_INPUT_BUCKET` is not defined.'
+assert 'COS_OUTPUT_BUCKET' in os.environ, 'Environment variable `COS_OUTPUT_BUCKET` is not defined.'
+assert 'AWS_ACCESS_KEY_ID' in os.environ, 'Environment variable `AWS_ACCESS_KEY_ID` is not defined.'
+assert 'AWS_SECRET_ACCESS_KEY' in os.environ, 'Environment variable `AWS_SECRET_ACCESS_KEY` is not defined.'
 
 # update the yaml file with the corresponding buckets
 yaml_file = glob.glob('*.yaml')[0]
@@ -39,10 +44,8 @@ with open(yaml_file, 'r') as fp:
     config = yaml.load(fp)
 
 # set input bucket
-config['train']['data_source']['bucket'] = os.environ.get('COS_INPUT_BUCKET')
 config['train']['data_source']['training_data']['bucket'] = os.environ.get('COS_INPUT_BUCKET')
 # set output bucket
-config['train']['model_training_results']['bucket'] = os.environ.get('COS_OUTPUT_BUCKET')
 config['train']['model_training_results']['trained_model']['bucket'] = os.environ.get('COS_OUTPUT_BUCKET')
 
 # save the file
@@ -50,17 +53,9 @@ with open(yaml_file, 'w') as fp:
     yaml.dump(config, fp)
 
 # clear the input and output bucket
-cw = COSWrapper(os.environ.get('AWS_ACCESS_KEY_ID'),
-                os.environ.get('AWS_SECRET_ACCESS_KEY'))
+cos = ibm_boto3.resource('s3', aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                         aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                         endpoint_url="https://s3.us.cloud-object-storage.appdomain.cloud")
 
-cw.clear_bucket(os.environ.get('COS_INPUT_BUCKET'))
-cw.clear_bucket(os.environ.get('COS_OUTPUT_BUCKET'))
-
-# upload sample training data to the bucket
-for fp in Path('sample_training_data/').glob('**/*'):
-    fp = str(fp)
-    if not os.path.isdir(fp):
-        cw.upload_file(file_name=fp,
-                       bucket_name=os.environ.get('COS_INPUT_BUCKET'),
-                       key_name=fp.replace('sample_training_data/', ''))
-#
+[x.delete() for x in cos.Bucket(os.environ.get('COS_INPUT_BUCKET')).objects.all()]
+[x.delete() for x in cos.Bucket(os.environ.get('COS_OUTPUT_BUCKET')).objects.all()]

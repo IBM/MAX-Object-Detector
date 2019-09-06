@@ -284,7 +284,7 @@ else:
 
         # is there training data in the bucket?
         no_training_data = cw.is_bucket_empty(config['training_bucket'])
-
+        print('saishruthi test1', no_training_data)
         # add initial_model artifacts to bucket
         if config.get('local_data_dir') and \
                 os.path.isdir(config['local_data_dir']):
