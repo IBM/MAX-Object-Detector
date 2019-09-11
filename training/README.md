@@ -9,7 +9,7 @@
 
 Collect RGB images encoded as jpeg or png containing objects that need to be detected. Make sure
 the training images have large variations in angle, resolution, lighting and background so that they generalize 
-well with the test data. Using 100s or 1000s of images would provide better results.
+well with the test data. Use a reasonably large number if images per class to provide better results.
 
 ## Train the Model
 

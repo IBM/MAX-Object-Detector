@@ -284,7 +284,12 @@ else:
 
         # is there training data in the bucket?
         no_training_data = cw.is_bucket_empty(config['training_bucket'])
-        print('saishruthi test1', no_training_data)
+
+        if config.get('local_data_dir') and \
+                os.path.isdir(config['local_data_dir']):
+            config['local_data_dir'] = \
+                os.path.abspath(config['local_data_dir'])
+
         # add initial_model artifacts to bucket
         if config.get('local_data_dir') and \
                 os.path.isdir(config['local_data_dir']):
@@ -331,7 +336,7 @@ else:
             ignore_list = []
             ignore_list.append(os.path.join(config['local_data_dir'],
                                             'README.md'))
-            for file in glob.iglob(config['local_data_dir'] + '**/*',
+            for file in glob.iglob(config['local_data_dir'] + '/**/*',
                                    recursive=True):
                 if file in ignore_list or file.startswith(initial_model_path):
                     continue

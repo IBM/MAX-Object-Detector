@@ -20,13 +20,13 @@ train:
       model_training_results:
             trained_model:
                   data_store: cloud_training_datastore
-                  bucket: out-testing-aug1
+                  bucket:
             trained_model_local:
                   path: ../custom_assets/
       data_source:
             training_data:
                   data_store: cloud_training_datastore
-                  bucket: inp-testing-aug1
+                  bucket:
                   path:
             training_data_local:
                   path: sample_training_data/
