@@ -3,7 +3,7 @@
 Training Object detection model requires images and their annotations using bounding boxes.
 
 To ease creating annotations in Cloud Object Storage bucket, we can use [the Cloud Annotations Tool](https://cloud.annotations.ai/login), 
-a fast, easy and collaborative open source image annotation tool that sits on top of our object storage that allows us to upload photos and associate them with annotations.
+a fast, easy and collaborative open source image annotation tool that sits on top of IBM Cloud Object Storage that allows us to upload photos and associate them with annotations.
 
 Follow the instructions in this document to prepare your data for training the object detector model.
 - [Prerequisites](#prerequisites)
