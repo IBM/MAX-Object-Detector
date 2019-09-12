@@ -43,8 +43,7 @@ In order to run the model training script two sets of environment variables need
 
 ##### 1. Watson Machine Learning
 
-- ML_USERNAME
-- ML_PASSWORD
+- ML_APIKEY
 - ML_ENV
 - ML_INSTANCE
 
@@ -80,15 +79,14 @@ The main menu options vary depending on which environment variables are set when
    
 3. Once setup is completed, define the displayed environment variables.
 
-   MacOS example:
-
+   MacOS/Linux example:
+   
    ```
+   $ export ML_APIKEY=...
+   $ export ML_INSTANCE=...
+   $ export ML_ENV=...
    $ export AWS_ACCESS_KEY_ID=...
    $ export AWS_SECRET_ACCESS_KEY=...
-   $ export ML_INSTANCE=...
-   $ export ML_USERNAME=...
-   $ export ML_PASSWORD=...
-   $ export ML_ENV=...
    ```
    
    Also, note the YAML configuration.
