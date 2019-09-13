@@ -1,10 +1,9 @@
 ## Object Detection - Data Preparation
 
-Training the Object Detector requires images and their annotations using bounding boxes.
+Training the Object Detector requires a dataset of images, annotated with the bounding boxes of each object identified in each image.
 
-To ease creating annotations in Cloud Object Storage bucket, we can use [the Cloud Annotations Tool](https://cloud.annotations.ai/login), 
-a fast, easy and collaborative open source image annotation tool that sits on top of IBM Cloud Object Storage 
-that allows us to upload photos and interactively draw bounding boxes around objects in the image"
+To easily create annotated image datasets, we can use [the Cloud Annotations Tool](https://cloud.annotations.ai/login), 
+a fast, easy and collaborative open source image annotation tool that makes it easy to interactively draw bounding boxes around objects in images residing on [IBM Cloud Object Storage](https://www.ibm.com/cloud/object-storage). 
 
 Follow the instructions in this document to prepare your data for training the object detector model.
 - [Prerequisites](#prerequisites)
