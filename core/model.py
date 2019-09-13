@@ -23,6 +23,7 @@ import numpy as np
 import logging
 from config import PATH_TO_CKPT, PATH_TO_LABELS, NUM_CLASSES
 from utils import label_map_util
+import utils.ops
 
 logger = logging.getLogger()
 
@@ -89,7 +90,7 @@ class ModelWrapper(MAXModelWrapper):
                     real_num_detection = tf.cast(tensor_dict['num_detections'][0], tf.int32)
                     detection_boxes = tf.slice(detection_boxes, [0, 0], [real_num_detection, -1])
                     detection_masks = tf.slice(detection_masks, [0, 0, 0], [real_num_detection, -1, -1])
-                    detection_masks_reframed = utils_ops.reframe_box_masks_to_image_masks(detection_masks,  # noqa #TODO
+                    detection_masks_reframed = utils.ops.reframe_box_masks_to_image_masks(detection_masks,
                                                                                           detection_boxes,
                                                                                           image.shape[0],
                                                                                           image.shape[1])
