@@ -8,7 +8,7 @@ framework:
       version: '1.12'
       runtimes:
             name: python
-            version: 3.5
+            version: 3.6
 train:
       model_source:
             initial_model:
