@@ -1,0 +1,51 @@
+name: MAX Object Detector
+model_identifier: max-object-detector
+description: Localize and identify multiple objects in a single image.
+author:
+      name: IBM CODAIT
+framework:
+      name: tensorflow
+      version: '1.12'
+      runtimes:
+            name: python
+            version: 3.6
+train:
+      model_source:
+            initial_model:
+                  data_store: cloud_training_datastore
+                  bucket:
+                  path:
+            initial_model_local:
+                  path: training_code/
+      model_training_results:
+            trained_model:
+                  data_store: cloud_training_datastore
+                  bucket:
+            trained_model_local:
+                  path: ../custom_assets/
+      data_source:
+            training_data:
+                  data_store: cloud_training_datastore
+                  bucket:
+                  path:
+            training_data_local:
+                  path: sample_training_data/
+
+      mount_type: mount_cos
+      execution:
+            command: ./train-max-model.sh
+            compute_configuration:
+                  name: k80
+
+process:
+-   name: training_process
+    params:
+          staging_dir: training_output/
+          trained_model_path: trained_model/tensorflow/frozen_graph_def/
+
+data_stores:
+-   name: cloud_training_datastore
+    type: s3
+    connection:
+          endpoint: https://s3.us.cloud-object-storage.appdomain.cloud
+
