@@ -62,18 +62,18 @@ The main menu options vary depending on which environment variables are set when
 
 #### Steps
 
-1. Locate the training configuration file. It is named `...-training-config.yaml`.
+1. Locate the training configuration file. It is named `max-object-detector-training-config.yaml`.
 
    ```
 
    $ ls *.yaml
-     <...-training-config.yaml> 
+     max-object-detector-training-config.yaml
    ```
 
 2. Configure your environment for model training.
 
    ```
-    $ python wml_setup.py <...-training-config.yaml> 
+    $ python wml_setup.py max-object-detector-training-config.yaml
      ...
    ```
    
@@ -110,7 +110,7 @@ To prepare your data for training complete the steps listed in [data_preparation
 #### Model Weights Usage
 
 - Note the `local directory` displayed after running the setup script or directly 
-  look into local directory path configured in `<...-training-config.yaml> ` under
+  look into local directory path configured in `max-object-detector-training-config.yaml` under
   `train/data_source/train_data_local`.
   
 - Create a folder named `initial_model`.
@@ -147,10 +147,10 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
 
 #### Commands
 
-1. Verify that the training preparation steps complete successfully. Replace `<model-name.yaml>` with your configuration file.
+1. Verify that the training preparation steps complete successfully.
 
    ```
-    $ python wml_train.py <...-training-config.yaml> prepare
+    $ python wml_train.py max-object-detector-training-config.yaml prepare
      ...
      # --------------------------------------------------------
      # Checking environment variables ...
@@ -166,7 +166,7 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
 2. Start model training.
 
    ```
-   $ python wml_train.py <...-training-config.yaml> package
+   $ python wml_train.py max-object-detector-training-config.yaml package
     ...
     # --------------------------------------------------------
     # Starting model training ...
@@ -215,7 +215,7 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
      training-log.txt 
    ```
  
-   To **restart** monitoring, `python wml_train.py <...-training-config.yaml> package <training id>`.
+   To **restart** monitoring, `python wml_train.py max-object-detector-training-config.yaml package <training id>`.
   
    To **cancel** the training run, press `ctrl+C` twice.
 
