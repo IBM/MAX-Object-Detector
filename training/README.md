@@ -43,14 +43,14 @@ In order to run the model training script two sets of environment variables need
 
 ##### 1. Watson Machine Learning
 
-- ML_APIKEY
-- ML_ENV
-- ML_INSTANCE
+- `ML_APIKEY`
+- `ML_ENV`
+- `ML_INSTANCE`
 
 ##### 2. Cloud Object Storage
 
-- AWS_ACCESS_KEY
-- AWS_SECRET_ACCESS_KEY
+- `AWS_ACCESS_KEY`
+- `AWS_SECRET_ACCESS_KEY`
 
 The wml_setup.py script (among other things) ensures that these variables are properly defined 
 and YAML file is properly configured. 
@@ -75,6 +75,14 @@ The main menu options vary depending on which environment variables are set when
    ```
     $ python wml_setup.py max-object-detector-training-config.yaml
      ...
+     ------------------------------------------------------------------------------
+     Model training setup is complete and your configuration file was updated.
+     ------------------------------------------------------------------------------
+     Training data bucket name   : object-detector-sample
+     Local data directory        : sample_training_data/
+     Training results bucket name: object-detector-sample-output
+     Compute configuration       : k80     
+     
    ```
    
 3. Once setup is completed, define the displayed environment variables.
@@ -87,18 +95,6 @@ The main menu options vary depending on which environment variables are set when
    $ export ML_ENV=...
    $ export AWS_ACCESS_KEY_ID=...
    $ export AWS_SECRET_ACCESS_KEY=...
-   ```
-   
-   Also, note the YAML configuration.
-   
-   ```
-       ------------------------------------------------------------------------------
-       NEW YAML CONFIGURATION VALUES
-       ------------------------------------------------------------------------------
-       input_bucket  : object-detector-input
-       local directory  : .../inp_obj
-       result bucket  : object-detector-output
-       compute  : k80x4
    ```
 
 ### Prepare Data for Training
@@ -128,9 +124,9 @@ To initiate training from the custom trained checkpoints, place the checkpoint f
 
 Checkpoint files include:
 
-- model.ckpt-<step-number>.data-00*
-- model.ckpt-<step-number>.index
-- model.ckpt-<step-number>.meta
+- `model.ckpt-<step-number>.data-00*`
+- `model.ckpt-<step-number>.index`
+- `model.ckpt-<step-number>.meta`
 
 #### Configure Hyperparameters
 
@@ -158,10 +154,10 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
      ...
    ```
 
-   If prepartion completed successfully:
+   If preparation completed successfully:
 
     - Training data is present in the Cloud Object Storage bucket that WML will access during model training.
-    - Model training code is packaged `<model-name>-model-building-code.zip`
+    - Model training code is packaged `max-object-detector-model-building-code.zip`
 
 2. Start model training.
 
@@ -175,18 +171,19 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
     Training run name     : train-max-...
     Training data bucket  : ...
     Results bucket        : ...
-    Model-building archive: max-...-model-building-code.zip
+    Model-building archive: max-object-detector-model-building-code.zip
     Model training was started. Training id: model-...
     ...
    ```
    
    > Note the `Training id` displayed.
 
-3. Monitor training progress
+3. Monitor training progress.
 
    ```
    ...
-   Training status is updated every 15 seconds - (p)ending (r)unning (e)rror (c)ompleted: 
+   Checking model training status every 15 seconds. Press Ctrl+C once to stop monitoring or  press Ctrl+C twice to cancel training.
+   Status - (p)ending (r)unning (e)rror (c)ompleted or canceled:
    ppppprrrrrrr...
    ```
 
@@ -232,7 +229,7 @@ To serve the model trained model on your dataset you have to rebuild the Docker 
 1. Rebuild the Docker image
 
    ```
-   $ docker build -t <max-model-name> --build-arg use_pre_trained_model=false . 
+   $ docker build -t max-object-detector --build-arg use_pre_trained_model=false . 
     ...
    ```
    
@@ -241,5 +238,5 @@ To serve the model trained model on your dataset you have to rebuild the Docker 
  Once the Docker image build completes you can start the microservice as usual:
  
  ```
- $ docker run -it -p 5000:5000 <max-model-name>
+ $ docker run -it -p 5000:5000 max-object-detector
  ```
