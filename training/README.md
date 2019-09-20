@@ -239,6 +239,6 @@ To serve the model trained model on your dataset you have to rebuild the Docker 
    
  2. Run the customized Docker image.
  
-   ```
-   $ docker run -it -p 5000:5000 max-object-detector
-   ```
+    ```
+    $ docker run -it -p 5000:5000 max-object-detector
+    ```
