@@ -19,8 +19,7 @@ well with the test data. Use a reasonably large number if images per class to pr
 - [Customize Training](#customize-training)
 - [Train the Model Using Watson Machine Learning](#train-the-model-using-watson-machine-learning)
 
-In this document `$MODEL_REPO_HOME_DIR` refers to the cloned MAX model repository directory, e.g.
-`/users/hi_there/MAX-Object-Detector`. 
+In this document `$MODEL_REPO_HOME_DIR` refers to the cloned MAX model repository directory, e.g. `/users/hi_there/MAX-Object-Detector`. 
 
 ### Install Local Prerequisites
 
@@ -212,21 +211,24 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
      training-log.txt 
    ```
  
-   To **restart** monitoring, `python wml_train.py max-object-detector-training-config.yaml package <training id>`.
+   To **restart** monitoring, run `python wml_train.py max-object-detector-training-config.yaml package <training-id>`, replacing `<training-id>` with the id that was displayed when you started model training.
   
-   To **cancel** the training run, press `ctrl+C` twice.
+   To **cancel** the training run, press `Ctrl+C` twice.
 
 4. Return to the parent directory
 
+   ```
+   $ cd ..
+   ```
+
 ## Rebuild the Model-Serving Microservice
 
-Once the training run is complete, there should be a `frozen_inference_graph.pb` and `label_map.pbtxt` files in 
-$MODEL_REPO_HOME_DIR/custom_assets folder.
+Once the training run is complete, two files should be located in the `$MODEL_REPO_HOME_DIR/custom_assets` directory: `frozen_inference_graph.pb` and `label_map.pbtxt`.
 
 The model-serving microservice out of the box serves the pre-trained model which was trained on COCO dataset. 
 To serve the model trained model on your dataset you have to rebuild the Docker image:
 
-1. Rebuild the Docker image
+1. Rebuild the Docker image. In `$MODEL_REPO_HOME_DIR` run
 
    ```
    $ docker build -t max-object-detector --build-arg use_pre_trained_model=false . 
@@ -235,8 +237,8 @@ To serve the model trained model on your dataset you have to rebuild the Docker 
    
    > If the optional parameter `use_pre_trained_model` is set to `true` or if the parameter is not defined the Docker image will be configured to serve the pre-trained model.
    
- Once the Docker image build completes you can start the microservice as usual:
+ 2. Run the customized Docker image.
  
- ```
- $ docker run -it -p 5000:5000 max-object-detector
- ```
+   ```
+   $ docker run -it -p 5000:5000 max-object-detector
+   ```
