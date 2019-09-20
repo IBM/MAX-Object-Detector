@@ -57,7 +57,7 @@ and YAML file is properly configured.
 Input training data bucket, result bucket, local directory from where data will be uploaded and GPU 
 configuration are the details that will be updated in YAML file.
 
-The main menu options vary depending on which environment variables are set when wml_setup.py is run.
+The main menu options vary depending on which environment variables are set when `wml_setup.py` is run.
 
 #### Steps
 
