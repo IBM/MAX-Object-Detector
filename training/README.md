@@ -51,7 +51,7 @@ In order to run the model training script two sets of environment variables need
 - `AWS_ACCESS_KEY`
 - `AWS_SECRET_ACCESS_KEY`
 
-The wml_setup.py script (among other things) ensures that these variables are properly defined 
+The `wml_setup.py` script (among other things) ensures that these variables are properly defined 
 and YAML file is properly configured. 
 
 Input training data bucket, result bucket, local directory from where data will be uploaded and GPU 
