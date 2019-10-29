@@ -86,8 +86,6 @@ class TokenGenerate:
                 try:
                     with open(location) as keyfile:
                         json_file_load = json.load(keyfile)
-                        print('checking',json_file_load.get("apiKey",
-                              json_file_load.get("apikey")))
                         api_key_value = \
                             json_file_load.get("apiKey",
                                                json_file_load.get("apikey"))
