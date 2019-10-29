@@ -86,7 +86,14 @@ class TokenGenerate:
                 try:
                     with open(location) as keyfile:
                         json_file_load = json.load(keyfile)
-                        api_key_value = json_file_load["apiKey"],
+                        api_key_value = \
+                            json_file_load.get("apiKey",
+                                               json_file_load.get("apikey"))
+                        if not api_key_value:
+                            print('[MESSAGE] '
+                                  'This file does not contain an API key')
+                            continue
+
                         iam_display = """
 *----------------------------------------------------------------------------*
 |                                                                            |
@@ -98,9 +105,8 @@ class TokenGenerate:
                         iam_access_token = generate_token(api_key_value)
                         break
                 except Exception as e:
-                    print("[MESSAGE] Enter valid JSON file")
-                    if 'apiKey' in str(e):
-                        print('[MESSAGE] JSON file has no {} key'.format(e))
+                    print("[MESSAGE] The file could not be processed: {}"
+                          .format(e))
                     continue
             else:
                 print("[MESSAGE] Sorry, provide correct path of the key file")
