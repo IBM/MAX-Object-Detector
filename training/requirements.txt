@@ -1,7 +1,7 @@
 # requirements for the training framework train.py
 #
 # https://pypi.org/project/watson-machine-learning-client/
-watson-machine-learning-client==1.0.371
+watson-machine-learning-client==1.0.375
 # https://github.com/IBM/ibm-cos-sdk-python
 ibm-cos-sdk==2.4.4
 ruamel.yaml==0.15.74
