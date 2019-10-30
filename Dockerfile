@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM codait/max-base:v1.1.3
+FROM max-base-arm32v7
 
 RUN apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
 
