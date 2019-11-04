@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # Copyright 2018-2019 IBM Corp. All Rights Reserved.
 #
@@ -13,22 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import sys
 
-import json
-import os
+# If this import fails, make sure the max-training-framework package
+# was pip installed.
+from max_training_framework.wml_setup import do_setup
 
-
-def debug(msg, adict=None):
-    """
-        Print a debug message if environment variable
-        MAX_DEBUG is set
-        :param msg: message to print
-        :type msg: str
-
-        :param adict: if specified, adict will be printed
-        :type adict: dict
-    """
-    if os.environ.get('MAX_DEBUG', None) is not None:
-        print('[DEBUG] {}'.format(msg))
-        if adict:
-            print(json.dumps(adict, indent=2))
+if __name__ == '__main__':
+    sys.exit(do_setup())
