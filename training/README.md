@@ -19,7 +19,7 @@ well with the test data. Use a reasonably large number if images per class to pr
 - [Customize Training](#customize-training)
 - [Train the Model Using Watson Machine Learning](#train-the-model-using-watson-machine-learning)
 
-In this document `$MODEL_REPO_HOME_DIR` refers to the cloned MAX model repository directory, e.g. `/users/hi_there/MAX-Object-Detector`. 
+In this document `$MODEL_REPO_HOME_DIR` refers to the cloned MAX model repository directory, e.g. `/users/gone_fishing/MAX-Object-Detector`. 
 
 ### Install Local Prerequisites
 
@@ -31,35 +31,16 @@ Open a terminal window, change dir into `$MODEL_REPO_HOME_DIR/training` and inst
    $ pip install -r requirements.txt
     ... 
    ```
-   
-To test the model training process, use data from `/sample_training_data` and skip data preparation step.
+
+The directory contains two Python scripts, `setup_max_model_training` and `train_max_model`, which you'll use to prepare your environment for model training and to perform model training on Watson Machine Learning.
 
 ### Run the Setup Script
 
-#### Purpose
-
-In order to run the model training script two sets of environment variables need to be defined:
-
-##### 1. Watson Machine Learning
-
-- `ML_APIKEY`
-- `ML_ENV`
-- `ML_INSTANCE`
-
-##### 2. Cloud Object Storage
-
-- `AWS_ACCESS_KEY`
-- `AWS_SECRET_ACCESS_KEY`
-
-The `wml_setup.py` script (among other things) ensures that these variables are properly defined 
-and YAML file is properly configured. 
-
-Input training data bucket, result bucket, local directory from where data will be uploaded and GPU 
-configuration are the details that will be updated in YAML file.
-
-The main menu options vary depending on which environment variables are set when `wml_setup.py` is run.
+To perform model training, you need access to a Watson Machine Learning service instance and a Cloud Object Storage service instance on IBM Cloud. The `setup_max_model_training` Python script prepares your IBM Cloud resources for model training and configures your local environment.
 
 #### Steps
+
+1. Open a terminal window.
 
 1. Locate the training configuration file. It is named `max-object-detector-training-config.yaml`.
 
@@ -69,10 +50,10 @@ The main menu options vary depending on which environment variables are set when
      max-object-detector-training-config.yaml
    ```
 
-2. Configure your environment for model training.
+2. Run `setup_max_model_training` and follow the prompts to configure model training.
 
    ```
-    $ python wml_setup.py max-object-detector-training-config.yaml
+    $ ./setup_max_model_training max-object-detector-training-config.yaml
      ...
      ------------------------------------------------------------------------------
      Model training setup is complete and your configuration file was updated.
@@ -81,10 +62,13 @@ The main menu options vary depending on which environment variables are set when
      Local data directory        : sample_training_data/
      Training results bucket name: object-detector-sample-output
      Compute configuration       : k80     
-     
    ```
+
+   On Microsoft Windows run `python setup_max_model_training max-object-detector-training-config.yaml`.
+
+   The setup script updates the training configuration file using the information you've provided. For security reasons, confidential information, such as API keys or passwords, are _not_ stored in this file. Instead the script displays a set of environment variables that you must define to make this information available to the training script.
    
-3. Once setup is completed, define the displayed environment variables.
+3. Once setup is completed, define the displayed environment variables. The model training script `train_max_model` uses those variables to access your training resources.
 
    MacOS/Linux example:
    
@@ -96,9 +80,21 @@ The main menu options vary depending on which environment variables are set when
    $ export AWS_SECRET_ACCESS_KEY=...
    ```
 
+   Microsoft Windows:
+   
+   ```
+   $ set ML_APIKEY=...
+   $ set ML_INSTANCE=...
+   $ set ML_ENV=...
+   $ set AWS_ACCESS_KEY_ID=...
+   $ set AWS_SECRET_ACCESS_KEY=...
+   ```
+
+   > If you re-run the setup script and select a different Watson Machine Learning service instance or Cloud Object Storage service instance the displayed values will change. The values do not change if you modify any other configuration setting, such as the input data bucket or the compute configuration.
+
 ### Prepare Data for Training
 
-To prepare your data for training complete the steps listed in [data_preparation/README.md](data_preparation/README.md).
+You can test the model training process using the sample data in the `sample_training_data` directory. To use your own data, follow the instructions in [data_preparation/README.md](data_preparation/README.md).
 
 ### Customize Training
 
@@ -134,18 +130,16 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
 
 ### Train the Model Using Watson Machine Learning
 
-#### Purpose
+The `train_max_model` script verifies your configuration settings, packages the model training code, uploads it to Watson Machine Learning, launches the training run, monitors the training run, and downloads the trained model artifacts.
 
-- To initiate training in Watson Machine Learning.
-- To download model and log files.
-- Place downloaded files in parent directory for the docker to pick up.
+Complete the following steps in the terminal window where the earlier mentioned environment variables are defined. 
 
-#### Commands
+#### Steps
 
 1. Verify that the training preparation steps complete successfully.
 
    ```
-    $ python wml_train.py max-object-detector-training-config.yaml prepare
+    $ ./train_max_model max-object-detector-training-config.yaml prepare
      ...
      # --------------------------------------------------------
      # Checking environment variables ...
@@ -153,15 +147,17 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
      ...
    ```
 
+   On Microsoft Windows run `python train_max_model max-object-detector-training-config.yaml prepare`.
+
    If preparation completed successfully:
 
     - Training data is present in the Cloud Object Storage bucket that WML will access during model training.
     - Model training code is packaged `max-object-detector-model-building-code.zip`
 
-2. Start model training.
+1. Start model training.
 
    ```
-   $ python wml_train.py max-object-detector-training-config.yaml package
+   $ ./train_max_model max-object-detector-training-config.yaml package
     ...
     # --------------------------------------------------------
     # Starting model training ...
@@ -174,10 +170,12 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
     Model training was started. Training id: model-...
     ...
    ```
-   
-   > Note the `Training id` displayed.
 
-3. Monitor training progress.
+   > On Microsoft Windows run `python train_max_model max-object-detector-training-config.yaml package`.
+
+1. Note the displayed `Training id`. It uniquely identifies your training run in Watson Machine Learning.
+
+1. Monitor training progress.
 
    ```
    ...
@@ -185,6 +183,18 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
    Status - (p)ending (r)unning (e)rror (c)ompleted or canceled:
    ppppprrrrrrr...
    ```
+
+   To **stop** monitoring (but continue model training), press `Ctrl+C` once.
+ 
+   To **restart** monitoring, run the following command, replacing `<training-id>` with the id that was displayed when you started model training. 
+   
+      ```
+      ./train_max_model max-object-detector-training-config.yaml package <training-id>
+      ```
+
+    > On Microsoft Windows run `python ./train_max_model max-object-detector-training-config.yaml package <training-id>`
+  
+   To **cancel** the training run, press `Ctrl+C` twice.
 
    After training has completed the training log file `training-log.txt` is downloaded along with the trained model artifacts.
 
@@ -202,7 +212,7 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
    ....................................................................................
    ```
 
-   > If training was terminated early due to an error only the log file is downloaded. Inspect it to identify the problem.
+   If training was terminated early due to an error only the log file is downloaded. Inspect it to identify the problem.
 
    ```
    $ ls training_output/
@@ -210,12 +220,8 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
      trained_model/
      training-log.txt 
    ```
- 
-   To **restart** monitoring, run `python wml_train.py max-object-detector-training-config.yaml package <training-id>`, replacing `<training-id>` with the id that was displayed when you started model training.
-  
-   To **cancel** the training run, press `Ctrl+C` twice.
 
-4. Return to the parent directory
+4. Return to the parent directory `$MODEL_REPO_HOME_DIR/training`.
 
    ```
    $ cd ..
@@ -225,7 +231,7 @@ To change the number of training steps, update the variable `NUM_TRAIN_STEPS` in
 
 Once the training run is complete, two files should be located in the `$MODEL_REPO_HOME_DIR/custom_assets` directory: `frozen_inference_graph.pb` and `label_map.pbtxt`.
 
-The model-serving microservice out of the box serves the pre-trained model which was trained on COCO dataset. 
+The model-serving microservice out of the box serves the pre-trained model, which was trained on COCO dataset. 
 To serve the model trained model on your dataset you have to rebuild the Docker image:
 
 1. Rebuild the Docker image. In `$MODEL_REPO_HOME_DIR` run
