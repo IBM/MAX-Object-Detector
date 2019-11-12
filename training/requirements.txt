@@ -1,9 +1,5 @@
-# requirements for the training framework train.py
+# 
+# Install requirements for MAX model training
+# pip install -r requirements.txt --upgrade
 #
-# https://pypi.org/project/watson-machine-learning-client/
-watson-machine-learning-client==1.0.375
-# https://github.com/IBM/ibm-cos-sdk-python
-ibm-cos-sdk==2.4.4
-ruamel.yaml==0.15.74
-getch==1.0
-requests==2.21.0
+max-training-framework>=0.1
