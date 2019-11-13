@@ -1,14 +1,57 @@
 language: python
+
 python:
   - 3.6
+
 services:
   - docker
+
+before_install:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      VERSION=latest;
+    else
+      VERSION=$TRAVIS_BRANCH;
+    fi
+
 install:
-  - docker build -t max-object-detector .
-  - docker run -it -d --rm -p 5000:5000 max-object-detector
+  - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
+  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"
   - pip install -r requirements-test.txt
+
 before_script:
   - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
   - sleep 30
+
 script:
   - pytest tests/test.py
+
+after_success:
+  - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
+      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
+      docker push codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION";
+    fi
+
+matrix:
+  include:
+  - os: linux
+    env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64
+  - os: linux
+    arch: arm64
+    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=test ARCH=arm32v7
+  - os: linux
+    arch: arm64
+    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7
+  - if: type = push AND (branch = master OR tag IS present)
+    stage: "Docker Manifest"
+    addons:
+      apt:
+        packages:
+          - docker-ce
+    install:
+    before_script:
+    script:
+      - export DOCKER_CLI_EXPERIMENTAL=enabled
+      - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
+      - docker manifest create codait/max-base:arm-"$VERSION" codait/max-base:arm-arm32v7-"arm32v7";
+      - docker manifest push codait/max-object-detector:arm-"$VERSION";
+    after_success:
