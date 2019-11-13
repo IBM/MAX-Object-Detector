@@ -16,7 +16,6 @@ before_install:
 install:
   - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
   - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"
-  - pip install -U pip
   - pip install -r requirements-test.txt
 
 before_script:
