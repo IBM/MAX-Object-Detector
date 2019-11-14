@@ -50,8 +50,4 @@ matrix:
     install:
     before_script:
     script:
-      - export DOCKER_CLI_EXPERIMENTAL=enabled
-      - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      - docker manifest create codait/max-base:arm-"$VERSION" codait/max-base:arm-arm32v7-"arm32v7";
-      - docker manifest push codait/max-object-detector:arm-"$VERSION";
     after_success:
