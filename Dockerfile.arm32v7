@@ -37,7 +37,8 @@ RUN wget -nv --show-progress --progress=bar:force:noscroll https://github.com/IB
 RUN mv ./MAX-Object-Detector-Web-App-1.2/static static
 
 COPY requirements.txt /workspace
-RUN pip install -U setuptools git+https://github.com/xuhdev/pip.git@arm64
+RUN rm -rf /usr/local/lib/python3.7/site-packages/pip
+RUN git clone --branch arm64 https://github.com/xuhdev/pip.git && cd pip && python setup.py install
 RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
 RUN python -m pip install -r requirements.txt
 
