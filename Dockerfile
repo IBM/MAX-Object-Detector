@@ -37,7 +37,7 @@ RUN wget -nv --show-progress --progress=bar:force:noscroll https://github.com/IB
 RUN mv ./MAX-Object-Detector-Web-App-1.2/static static
 
 COPY requirements.txt /workspace
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt && pip install -U tensorflow==1.13.1
 
 COPY . /workspace
 
