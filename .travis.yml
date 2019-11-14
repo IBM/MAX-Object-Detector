@@ -37,9 +37,6 @@ matrix:
     env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64
   - os: linux
     arch: arm64
-    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=test ARCH=arm32v7
-  - os: linux
-    arch: arm64
     env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7
   - if: type = push AND (branch = master OR tag IS present)
     stage: "Docker Manifest"
