@@ -112,7 +112,7 @@ $ docker build -t max-object-detector .
 For ARM CPUs (eg Raspberry Pi), run:
 
 ```bash
-$ docker build -t max-object-detector Dockerfile.arm32v7
+$ docker build -f Dockerfile.arm32v7 -t max-object-detector .
 ```
 
 All required model assets will be downloaded during the build process. _Note_ that currently this docker image is CPU only (we will add support for GPU images later).
