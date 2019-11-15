@@ -38,13 +38,3 @@ matrix:
   - os: linux
     arch: arm64
     env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7
-  - if: type = push AND (branch = master OR tag IS present)
-    stage: "Docker Manifest"
-    addons:
-      apt:
-        packages:
-          - docker-ce
-    install:
-    before_script:
-    script:
-    after_success:
