@@ -14,10 +14,10 @@ before_install:
     fi
 
   # Default variables (used by Jenkins)
-  - [[ -z "$DOCKERFILE" ]] && export DOCKERFILE=Dockerfile
-  - [[ -z "$IMAGE" ]] && export IMAGE=test
-  - [[ -z "$ARCH" ]] && export ARCH=x86_64
-  - [[ -z "$VERSION" ]] && export VERSION=jenkins
+  - '[[ -z "$DOCKERFILE" ]] && export DOCKERFILE=Dockerfile'
+  - '[[ -z "$IMAGE" ]] && export IMAGE=test'
+  - '[[ -z "$ARCH" ]] && export ARCH=x86_64'
+  - '[[ -z "$VERSION" ]] && export VERSION=jenkins'
 
 install:
   - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
