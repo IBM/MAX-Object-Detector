@@ -18,7 +18,7 @@ FROM codait/max-base:v1.1.3
 
 RUN apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
 
-ARG model_bucket=https://max-assets-prod.s3.us-south.cloud-object-storage.appdomain.cloud/max-object-detector/1.0.1
+ARG model_bucket=https://max.cdn.appdomain.cloud/max-object-detector/1.0.1
 ARG model_file=model.tar.gz
 ARG data_file=data.tar.gz
 ARG use_pre_trained_model=true
