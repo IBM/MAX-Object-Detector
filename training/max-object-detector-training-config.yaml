@@ -33,7 +33,7 @@ train:
 
       mount_type: mount_cos
       execution:
-            command: ./train-max-model.sh
+            command: chmod +x *.sh && ./train-max-model.sh
             compute_configuration:
                   name: k80
 
