@@ -224,3 +224,7 @@ $ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true codait/max-object-detector
 ## Train this Model on Watson Machine Learning
 
 This model supports training from scratch on a custom dataset. Please follow the steps listed under the [training README](training/README.md) to retrain the model on [Watson Machine Learning](https://www.ibm.com/cloud/machine-learning), a deep learning as a service offering of [IBM Cloud](https://ibm.biz/Bdz2XM).
+
+## Resources and Contributions
+   
+If you are interested in contributing to the Model Asset Exchange project or have any queries, please follow the instructions [here](https://github.com/CODAIT/max-central-repo).
