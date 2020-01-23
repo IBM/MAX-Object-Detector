@@ -7,10 +7,10 @@ services:
   - docker
 
 before_install:
+  # Replace all slashes (which are common in branch names) in VERSION with dashes for Docker compatibility
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       VERSION=latest;
     else
-      # Replace all slashes (which are common in branch names) in VERSION with dashes for Docker compatibility
       VERSION=${TRAVIS_BRANCH/\//-};
     fi
 
