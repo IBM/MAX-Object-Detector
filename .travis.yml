@@ -10,7 +10,8 @@ before_install:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       VERSION=latest;
     else
-      VERSION=$TRAVIS_BRANCH;
+      # Replace all slashes (which are common in branch names) in VERSION with dashes for Docker compatibility
+      VERSION=${TRAVIS_BRANCH/\//-};
     fi
 
   # Default variables (used by Jenkins)
