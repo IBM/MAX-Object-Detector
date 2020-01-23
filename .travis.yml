@@ -10,7 +10,7 @@ before_install:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       VERSION=latest;
     else
-      VERSION=$TRAVIS_BRANCH;
+      VERSION=${TRAVIS_BRANCH/\//-};
     fi
 
   # Default variables (used by Jenkins)
