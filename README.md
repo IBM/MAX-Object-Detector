@@ -10,8 +10,8 @@ The model is based on the [SSD Mobilenet V1 object detection model for TensorFlo
 
 ## Model Metadata
 | Domain | Application | Industry  | Framework | Training Data | Input Data Format |
-| ------------- | --------  | -------- | --------- | --------- | -------------- | 
-| Vision | Object Detection | General | TensorFlow | [COCO Dataset](http://mscoco.org/) | Image (RGB/HWC) | 
+| ------------- | --------  | -------- | --------- | --------- | -------------- |
+| Vision | Object Detection | General | TensorFlow | [COCO Dataset](http://mscoco.org/) | Image (RGB/HWC) |
 
 ## References
 
@@ -103,7 +103,7 @@ Change directory into the repository base folder:
 $ cd MAX-Object-Detector
 ```
 
-To build the docker image locally for Intel CPUs, run: 
+To build the docker image locally for Intel CPUs, run:
 
 ```bash
 $ docker build -t max-object-detector .
@@ -201,10 +201,6 @@ To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` u
 
 To stop the Docker container, type `CTRL` + `C` in your terminal.
 
-## Links
-
-* [Object Detector Web App](https://developer.ibm.com/patterns/create-a-web-app-to-interact-with-objects-detected-using-machine-learning/): A reference application created by the IBM CODAIT team that uses the Object Detector
-
 # Object Detector Web App
 
 The latest release of the [MAX Object Detector Web App](https://github.com/IBM/MAX-Object-Detector-Web-App)
@@ -226,5 +222,9 @@ $ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true codait/max-object-detector
 This model supports training from scratch on a custom dataset. Please follow the steps listed under the [training README](training/README.md) to retrain the model on [Watson Machine Learning](https://www.ibm.com/cloud/machine-learning), a deep learning as a service offering of [IBM Cloud](https://ibm.biz/Bdz2XM).
 
 ## Resources and Contributions
-   
+
 If you are interested in contributing to the Model Asset Exchange project or have any queries, please follow the instructions [here](https://github.com/CODAIT/max-central-repo).
+
+### Links
+
+* [Object Detector Web App](https://developer.ibm.com/patterns/create-a-web-app-to-interact-with-objects-detected-using-machine-learning/): A reference application created by the IBM CODAIT team that uses the Object Detector
