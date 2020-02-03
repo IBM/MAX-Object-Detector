@@ -47,7 +47,7 @@ COPY . /workspace
 
 RUN if [ "$use_pre_trained_model" = "true" ] ; then \
       # validate downloaded pre-trained model assets
-      md5sum -c md5sums.txt ; \
+      sha512sum -c sha512sums.txt ; \
     else \
       # rename the directory that contains the custom-trained model artifacts
       if [ -d "./custom_assets/" ] ; then \

@@ -1,2 +1,0 @@
-edd15e5ae62cf87b34bfd2d33c48f2c1  assets/label_map.pbtxt
-1be3ed58a65ced5936b1bff3fc09d9b1  assets/frozen_inference_graph.pb
