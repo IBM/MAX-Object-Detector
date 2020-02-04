@@ -31,10 +31,10 @@ RUN if [ "$use_pre_trained_model" = "true" ] ; then\
     wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${data_file} --output-document=assets/${data_file} && \
            tar -x -C assets/ -f assets/${data_file} -v && rm assets/${data_file}; fi
 
-RUN wget -nv --show-progress --progress=bar:force:noscroll https://github.com/carone1/MAX-Object-Detector-Web-App/archive/v1.2.a.tar.gz && \
-  tar -xf v1.2.a.tar.gz && rm v1.2.a.tar.gz
+RUN wget -nv --show-progress --progress=bar:force:noscroll https://github.com/carone1/MAX-Object-Detector-Web-App/archive/v1.2.b.tar.gz && \
+  tar -xf v1.2.b.tar.gz && rm v1.2.b.tar.gz
 
-RUN mv ./MAX-Object-Detector-Web-App-1.2.a/static static
+RUN mv ./MAX-Object-Detector-Web-App-1.2.b/static static
 
 COPY requirements.txt /workspace
 RUN pip install -r requirements.txt
