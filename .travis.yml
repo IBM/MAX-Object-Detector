@@ -38,12 +38,11 @@ before_install:
 
 install:
   - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
-  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"
+  - travis_wait 1 docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"
   - pip install -r requirements-test.txt
 
 before_script:
   - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
-  - sleep 30
 
 script:
   - pytest tests/test.py
