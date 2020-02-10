@@ -38,8 +38,9 @@ RUN mv ./MAX-Object-Detector-Web-App-2.0/static static
 
 COPY requirements.txt /workspace
 RUN rm -rf /usr/local/lib/python3.7/site-packages/pip
-RUN git clone --branch arm64 https://github.com/xuhdev/pip.git && cd pip && python setup.py install
-# We install TensorFlow directly from the URL here because of a bug in pip: https://github.com/pypa/packaging/pull/234
+# We install the latest pypa packaging because of the bug https://github.com/pypa/packaging/pull/234 .
+# The following line should be removed after a new pypa packaging release > 20.1 becomes available.
+RUN python -m pip install -U git+https://github.com/pypa/packaging.git
 RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
 RUN python -m pip install -r requirements.txt
 
