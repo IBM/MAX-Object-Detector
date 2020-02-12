@@ -37,6 +37,7 @@ before_install:
   - '[[ -z "$VERSION" ]] && export VERSION=jenkins || /bin/true'
 
 install:
+  - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
   - pip install -r requirements-test.txt
 
 script:
