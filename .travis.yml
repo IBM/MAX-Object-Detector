@@ -34,20 +34,13 @@ before_install:
   - '[[ -z "$DOCKERFILE" ]] && export DOCKERFILE=Dockerfile || /bin/true'
   - '[[ -z "$IMAGE" ]] && export IMAGE=test || /bin/true'
   - '[[ -z "$ARCH" ]] && export ARCH=x86_64 || /bin/true'
-  - '[[ -z "$DIST" ]] && export DIST=bionic || /bin/true'
   - '[[ -z "$VERSION" ]] && export VERSION=jenkins || /bin/true'
 
 install:
-  - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
-  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"
   - pip install -r requirements-test.txt
 
-before_script:
-  - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
-  - sleep 30
-
 script:
-  - pytest tests/test.py
+  - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
 
 after_success:
   - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
@@ -61,4 +54,4 @@ matrix:
     env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64
   - os: linux
     arch: arm64
-    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 DIST=bionic
+    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7
