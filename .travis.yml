@@ -37,13 +37,16 @@ before_install:
   - '[[ -z "$VERSION" ]] && export VERSION=jenkins || /bin/true'
 
 install:
+  - travis_wait docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
+  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"
   - pip install -r requirements-test.txt
 
-script:
+before_script:
   - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
+  - sleep 30
 
-after_success:
-  - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
+script:
+  - pytest tests/test.py
 
 matrix:
   include:
