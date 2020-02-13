@@ -37,17 +37,13 @@ before_install:
   - '[[ -z "$VERSION" ]] && export VERSION=jenkins || /bin/true'
 
 install:
-  - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
   - pip install -r requirements-test.txt
 
 script:
   - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
 
 after_success:
-  - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
-      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      docker push codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION";
-    fi
+  - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
 
 matrix:
   include:
