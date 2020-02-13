@@ -43,7 +43,7 @@ install:
 
 before_script:
   - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
-  - sleep 300
+  - sleep 1500
 
 script:
   - pytest tests/test.py
