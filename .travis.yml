@@ -43,7 +43,9 @@ install:
 
 before_script:
   - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
-  - travis_wait 30 sleep 1500
+  - sleep 500
+  - sleep 500
+  - sleep 500
 
 script:
   - pytest tests/test.py
