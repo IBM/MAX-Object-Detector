@@ -17,7 +17,6 @@ jobs:
           python-version: 3.7
 
     - name: Build the Docker image
-      run: docker build -t max-news-text-generator .
       run: docker build -f Dockerfile.arm32v7 -t max-object-detector:arm .
 
     - name: Run the Docker image
