@@ -58,6 +58,3 @@ matrix:
   include:
   - os: linux
     env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64
-  - os: linux
-    arch: arm64
-    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7
