@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+import os
 from maxfw.core import MAX_API, PredictAPI, CustomMAXAPI
 from flask_restplus import fields
 from werkzeug.datastructures import FileStorage
@@ -66,11 +66,17 @@ label_prediction = MAX_API.model('LabelPrediction', {
                                                                           ') in the form [ymin, xmin, ymax, xmax].')
 })
 
+environment_variables = MAX_API.model('ClusterEnvironment', {
+    'name': fields.String(required=False, description='Environemnt varaible name'),
+    'value': fields.String(required=False, description='Environment variable value')
+})
+
 predict_response = MAX_API.model('ModelPredictResponse', {
     'status': fields.String(required=True, description='Response status message'),
     'predictions': fields.List(fields.Nested(label_prediction),
                                description='Predicted class labels, probabilities and bounding box for each detected '
-                                           'object')
+                                           'object'),
+    'environment_variables': fields.List(fields.Nested(environment_variables), description='Cluster Environment')
 })
 
 
@@ -91,5 +97,9 @@ class ModelPredictAPI(PredictAPI):
 
         result['predictions'] = label_preds
         result['status'] = 'ok'
-
+        environment_variables.append({'host':socket.gethostname()})
+        for k, v in os.environ.items():
+            environment_variable = {'name':k, 'value':v}
+            environment_variables.append(environment_variable)
+        result['environment_variables'] = environment_variables
         return result
