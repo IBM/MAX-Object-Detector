@@ -1,5 +1,5 @@
 #
-# Copyright 2018-2019 IBM Corp. All Rights Reserved.
+# Copyright 2018-2020 IBM Corp. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM codait/max-base:arm-arm32v7-latest
+FROM codait/max-base:arm-arm32v7-v1.3.1
 
 RUN apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
 
