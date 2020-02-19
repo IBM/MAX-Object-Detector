@@ -16,7 +16,7 @@
 
 FROM codait/max-base:v1.1.3
 
-RUN apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install libatlas3-base gcc make zlib1g-dev libbz2-dev libreadline-dev && rm -rf /var/lib/apt/lists/*
 
 ARG model_bucket=https://max.cdn.appdomain.cloud/max-object-detector/1.0.1
 ARG model_file=model.tar.gz
@@ -53,4 +53,5 @@ RUN if [ "$use_pre_trained_model" = "true" ] ; then \
 
 EXPOSE 5000
 
+ENV ENV_APP_NAME=v1.2.b
 CMD python app.py

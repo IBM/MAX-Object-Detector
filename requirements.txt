@@ -2,3 +2,4 @@ tensorflow==1.13.1
 Pillow==6.2.0
 numpy==1.17.0
 google==2.0.2
+netifaces==0.10.9
