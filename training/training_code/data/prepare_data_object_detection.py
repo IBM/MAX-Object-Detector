@@ -156,8 +156,8 @@ def main(read_bucket=read_dir, write_bucket=write_dir):
     ############################################################################
     # Extract Model Checkpoint
     ############################################################################
-    download_base = 'https://max-assets-dev.s3.us-south.cloud-object-storage.' \
-                    'appdomain.cloud/max-object-detector/1.0.0/'
+    download_base = 'https://max-cdn.cdn.appdomain.cloud/' \
+                    'max-object-detector/1.0.1/'
     model_file = 'ssd_mobilenet_v1_coco_2018_01_28.tar.gz'
 
     if sys.argv[1] == 'Y':
