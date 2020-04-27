@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/IBM/MAX-Object-Detector.svg?branch=master)](https://travis-ci.com/IBM/MAX-Object-Detector) [![Website Status](https://img.shields.io/website/http/max-object-detector.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-object-detector.max.us-south.containers.appdomain.cloud/)
+[![Build Status](https://travis-ci.com/IBM/MAX-Object-Detector.svg?branch=master)](https://travis-ci.com/IBM/MAX-Object-Detector) [![Website Status](https://img.shields.io/website/http/max-object-detector.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-object-detector.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud)
 
 [<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
 
@@ -6,7 +6,7 @@
 
 This repository contains code to instantiate and deploy an object detection model. This model recognizes the objects present in an image from the 80 different high-level classes of objects in the [COCO Dataset](http://mscoco.org/). The model consists of a deep convolutional net base model for image feature extraction, together with additional convolutional layers specialized for the task of object detection, that was trained on the COCO data set. The input to the model is an image, and the output is a list of estimated class probabilities for the objects detected in the image.
 
-The model is based on the [SSD Mobilenet V1 object detection model for TensorFlow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). The model files are hosted on [IBM Cloud Object Storage](https://max.cdn.appdomain.cloud/max-object-detector/1.0.1/model.tar.gz). The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
+The model is based on the [SSD Mobilenet V1 object detection model for TensorFlow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). The model files are hosted on [IBM Cloud Object Storage](https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.1/model.tar.gz). The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
 
 ## Model Metadata
 | Domain | Application | Industry  | Framework | Training Data | Input Data Format |
@@ -183,7 +183,7 @@ The default value for `threshold` is `0.7`.
 
 ### 4. Run the Notebook
 
-[The demo notebook](demo.ipynb) walks through how to use the model to detect objects in an image and visualize the results. By default, the notebook uses the [hosted demo instance](http://max-object-detector.max.us-south.containers.appdomain.cloud), but you can use a locally running instance (see the comments in Cell 3 for details). _Note_ the demo requires `jupyter`, `matplotlib`, `Pillow`, and `requests`.
+[The demo notebook](demo.ipynb) walks through how to use the model to detect objects in an image and visualize the results. By default, the notebook uses the [hosted demo instance](http://max-object-detector.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/), but you can use a locally running instance (see the comments in Cell 3 for details). _Note_ the demo requires `jupyter`, `matplotlib`, `Pillow`, and `requests`.
 
 Run the following command from the model repo base folder, in a new terminal window:
 
