@@ -35,9 +35,6 @@ RUN wget -O - -nv --show-progress --progress=bar:force:noscroll https://github.c
   tar zxvf - --strip-components=1 --wildcards 'MAX-Object-Detector-Web-App-*/static'
 
 COPY requirements.txt /workspace
-# We install Hong's pip branch because of the bug https://github.com/pypa/packaging/pull/234 .
-# The following line should be removed after a new pip release > 20.0.2 becomes available and https://github.com/pypa/pip/pull/7852 is merged.
-RUN pip install -U git+https://github.com/pypa/pip.git
 RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
 RUN python -m pip install -r requirements.txt
 
