@@ -43,6 +43,7 @@ install:
 
 before_script:
   - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
+  - bandit -r .
   - sleep 30
 
 script:
