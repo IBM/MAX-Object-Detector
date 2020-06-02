@@ -37,8 +37,8 @@ before_install:
   - '[[ -z "$VERSION" ]] && export VERSION=jenkins || /bin/true'
 
 install:
-  - docker build -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION" .
-  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"
+  - docker build --build-arg model=$MODEL -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$MODEL"-"$VERSION" .
+  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$MODEL"-"$VERSION"
   - pip install -r requirements-test.txt
 
 before_script:
@@ -52,13 +52,18 @@ script:
 after_success:
   - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      docker push codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION";
+      docker push codait/max-object-detector:"$IMAGE"-"$ARCH"-"$MODEL"-"$VERSION";
     fi
 
 matrix:
   include:
   - os: linux
-    env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64
+    env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64 MODEL=ssd_mobilenet_v1
+  - os: linux
+    env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64 MODEL=faster_rcnn_resnet101
   - os: linux
     arch: arm64
-    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7
+    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 MODEL=ssd_mobilenet_v1
+  - os: linux
+    arch: arm64
+    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 MODEL=faster_rcnn_resnet101

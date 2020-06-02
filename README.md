@@ -6,7 +6,7 @@
 
 This repository contains code to instantiate and deploy an object detection model. This model recognizes the objects present in an image from the 80 different high-level classes of objects in the [COCO Dataset](http://mscoco.org/). The model consists of a deep convolutional net base model for image feature extraction, together with additional convolutional layers specialized for the task of object detection, that was trained on the COCO data set. The input to the model is an image, and the output is a list of estimated class probabilities for the objects detected in the image.
 
-The model is based on the [SSD Mobilenet V1 object detection model for TensorFlow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). The model files are hosted on [IBM Cloud Object Storage](https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.1/model.tar.gz). The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
+The model is based on the [SSD Mobilenet V1 and Faster RCNN ResNet101 object detection model for TensorFlow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). The model files are hosted on IBM Cloud Object Storage: [ssd_mobilenet_v1.tar.gz](https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.2/ssd_mobilenet_v1.tar.gz) and [faster_rcnn_resnet101.tar.gz](https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.2/faster_rcnn_resnet101.tar.gz). The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
 
 ## Model Metadata
 | Domain | Application | Industry  | Framework | Training Data | Input Data Format |
@@ -108,6 +108,14 @@ To build the docker image locally for Intel CPUs, run:
 ```bash
 $ docker build -t max-object-detector .
 ```
+
+To select a model, pass in the `--build-arg model=<desired-model>` switch:
+
+```bash
+$ docker build --build-arg model=faster_rcnn_resnet101 -t max-object-detector .
+```
+
+Currently we support two models, `ssd_mobilenet_v1` (default) and `faster_rcnn_resnet101`.
 
 For ARM CPUs (eg Raspberry Pi), run:
 
