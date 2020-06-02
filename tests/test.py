@@ -60,39 +60,45 @@ def test_predict():
 
     assert response['status'] == 'ok'
 
+    # One is Teddy Bear and the other is Child
+    assert frozenset((response['predictions'][0]['label_id'],
+                      response['predictions'][1]['label_id'])) == frozenset(('1', '88'))
+
     #  Teddy Bear
-    assert response['predictions'][0]['label_id'] == '88'
-    assert response['predictions'][0]['label'] == 'teddy bear'
-    assert response['predictions'][0]['probability'] > 0.95
+    bear_index = 0 if response['predictions'][0]['label_id'] == '88' else 1
+    assert response['predictions'][bear_index]['label_id'] == '88'
+    assert response['predictions'][bear_index]['label'] == 'teddy bear'
+    assert response['predictions'][bear_index]['probability'] > 0.95
 
-    assert response['predictions'][0]['detection_box'][0] > 0.25
-    assert response['predictions'][0]['detection_box'][0] < 0.3
+    assert response['predictions'][bear_index]['detection_box'][0] > 0.25
+    assert response['predictions'][bear_index]['detection_box'][0] < 0.3
 
-    assert response['predictions'][0]['detection_box'][1] > 0.5
-    assert response['predictions'][0]['detection_box'][1] < 0.6
+    assert response['predictions'][bear_index]['detection_box'][1] > 0.5
+    assert response['predictions'][bear_index]['detection_box'][1] < 0.6
 
-    assert response['predictions'][0]['detection_box'][2] > 0.6
-    assert response['predictions'][0]['detection_box'][2] < 0.7
+    assert response['predictions'][bear_index]['detection_box'][2] > 0.6
+    assert response['predictions'][bear_index]['detection_box'][2] < 0.7
 
-    assert response['predictions'][0]['detection_box'][3] > 0.8
-    assert response['predictions'][0]['detection_box'][3] < 0.9
+    assert response['predictions'][bear_index]['detection_box'][3] > 0.8
+    assert response['predictions'][bear_index]['detection_box'][3] < 0.9
 
     # Child
-    assert response['predictions'][1]['label_id'] == '1'
-    assert response['predictions'][1]['label'] == 'person'
-    assert response['predictions'][1]['probability'] > 0.95
+    child_index = 0 if bear_index == 1 else 1
+    assert response['predictions'][child_index]['label_id'] == '1'
+    assert response['predictions'][child_index]['label'] == 'person'
+    assert response['predictions'][child_index]['probability'] > 0.95
 
-    assert response['predictions'][1]['detection_box'][0] > 0.2
-    assert response['predictions'][1]['detection_box'][0] < 0.3
+    assert response['predictions'][child_index]['detection_box'][0] > 0.2
+    assert response['predictions'][child_index]['detection_box'][0] < 0.3
 
-    assert response['predictions'][1]['detection_box'][1] > 0.2
-    assert response['predictions'][1]['detection_box'][1] < 0.3
+    assert response['predictions'][child_index]['detection_box'][1] > 0.2
+    assert response['predictions'][child_index]['detection_box'][1] < 0.3
 
-    assert response['predictions'][1]['detection_box'][2] > 0.6
-    assert response['predictions'][1]['detection_box'][2] < 0.7
+    assert response['predictions'][child_index]['detection_box'][2] > 0.6
+    assert response['predictions'][child_index]['detection_box'][2] < 0.7
 
-    assert response['predictions'][1]['detection_box'][3] > 0.5
-    assert response['predictions'][1]['detection_box'][3] < 0.6
+    assert response['predictions'][child_index]['detection_box'][3] > 0.5
+    assert response['predictions'][child_index]['detection_box'][3] < 0.6
 
 
 if __name__ == '__main__':
