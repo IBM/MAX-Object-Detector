@@ -18,8 +18,9 @@ FROM codait/max-base:arm-arm32v7-v1.3.2
 
 RUN apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
 
-ARG model_bucket=https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.1
-ARG model_file=model.tar.gz
+ARG model_bucket=https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.2
+ARG model='ssd_mobilenet_v1'
+ARG model_file=${model}.tar.gz
 ARG data_file=data.tar.gz
 ARG use_pre_trained_model=true
 
@@ -35,9 +36,6 @@ RUN wget -O - -nv --show-progress --progress=bar:force:noscroll https://github.c
   tar zxvf - --strip-components=1 --wildcards 'MAX-Object-Detector-Web-App-*/static'
 
 COPY requirements.txt /workspace
-RUN rm -rf /usr/local/lib/python3.7/site-packages/pip
-RUN git clone --branch arm64 https://github.com/xuhdev/pip.git && cd pip && python setup.py install
-# We install TensorFlow directly from the URL here because of a bug in pip: https://github.com/pypa/packaging/pull/234
 RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
 RUN python -m pip install -r requirements.txt
 
@@ -45,7 +43,7 @@ COPY . /workspace
 
 RUN if [ "$use_pre_trained_model" = "true" ] ; then \
       # validate downloaded pre-trained model assets
-      sha512sum -c sha512sums.txt ; \
+      sha512sum -c sha512sums-${model}.txt ; \
     else \
       # rename the directory that contains the custom-trained model artifacts
       if [ -d "./custom_assets/" ] ; then \
