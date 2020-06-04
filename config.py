@@ -25,7 +25,7 @@ RESTPLUS_MASK_SWAGGER = False
 # API metadata
 API_TITLE = 'MAX Object Detector'
 API_DESC = 'Localize and identify multiple objects in a single image.'
-API_VERSION = '1.3.0'
+API_VERSION = '1.4.0'
 
 # default model
 # name of model to download
