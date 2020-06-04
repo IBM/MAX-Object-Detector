@@ -37,8 +37,8 @@ before_install:
   - '[[ -z "$VERSION" ]] && export VERSION=jenkins || /bin/true'
 
 install:
-  - docker build --build-arg model=$MODEL -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$MODEL"-"$VERSION" .
-  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$MODEL"-"$VERSION"
+  - docker build --build-arg model=$MODEL -f "$DOCKERFILE" -t codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"-"$MODEL" .
+  - docker run -it -d --rm -p 5000:5000 codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"-"$MODEL"
   - pip install -r requirements-test.txt
 
 before_script:
@@ -52,7 +52,7 @@ script:
 after_success:
   - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      docker push codait/max-object-detector:"$IMAGE"-"$ARCH"-"$MODEL"-"$VERSION";
+      docker push codait/max-object-detector:"$IMAGE"-"$ARCH"-"$VERSION"-"$MODEL";
     fi
 
 matrix:
