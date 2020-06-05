@@ -36,8 +36,9 @@ RUN wget -O - -nv --show-progress --progress=bar:force:noscroll https://github.c
   tar zxvf - --strip-components=1 --wildcards 'MAX-Object-Detector-Web-App-*/static'
 
 COPY requirements.txt /workspace
-RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.14.0-cp37-none-linux_armv7l.whl
+# Skip tensorflow in requirements.txt
+RUN grep -v 'tensorflow' requirements.txt | python -m pip install -r /dev/stdin
 
 COPY . /workspace
 
