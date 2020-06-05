@@ -19,7 +19,7 @@ well with the test data. Use a reasonably large number if images per class to pr
 - [Customize Training](#customize-training)
 - [Train the Model Using Watson Machine Learning](#train-the-model-using-watson-machine-learning)
 
-In this document `$MODEL_REPO_HOME_DIR` refers to the cloned MAX model repository directory, e.g. `/users/gone_fishing/MAX-Object-Detector`. 
+In this document `$MODEL_REPO_HOME_DIR` refers to the cloned MAX model repository directory, e.g. `/users/gone_fishing/MAX-Object-Detector`. The training script currently only supports the `ssd_mobilenet_v1` model.
 
 ### Install Local Prerequisites
 
