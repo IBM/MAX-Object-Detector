@@ -1,4 +1,4 @@
-tensorflow==1.15
+tensorflow==1.15.2
 Pillow==6.2.0
 numpy==1.17.0
 google==2.0.2
