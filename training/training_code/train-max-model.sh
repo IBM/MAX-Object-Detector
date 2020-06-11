@@ -26,7 +26,9 @@ echo "Training data is stored in $DATA_DIR"
 # The WML stores work files in the $RESULT_DIR.
 echo "Training work files and results will be stored in $RESULT_DIR"
 
-echo "Installing prerequisite packages ..."
+echo "Installing prerequisite packages - 1..."
+pip install --user --no-deps -r training_prerequirements.txt
+echo "Installing prerequisite packages - 2..."
 pip install --user --no-deps -r training_requirements.txt
 
 # ---------------------------------------------------------------
