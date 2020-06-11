@@ -29,7 +29,7 @@ API_VERSION = '1.4.0'
 
 # default model
 # name of model to download
-MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
+MODEL_NAME = '@model@'
 DEFAULT_MODEL_PATH = 'assets'
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
@@ -43,9 +43,9 @@ MODEL_INPUT_IMG_SIZE = (299, 299)
 MODEL_LICENSE = 'ApacheV2'
 
 MODEL_META_DATA = {
-    'id': '{}-tf-mobilenet'.format(MODEL_NAME.lower()),
-    'name': '{} TensorFlow Model'.format(MODEL_NAME),
-    'description': '{} TensorFlow model trained on MobileNet'.format(MODEL_NAME),
+    'id': 'object-detector-{}'.format(MODEL_NAME.lower()),
+    'name': '{} TensorFlow Object Detector Model'.format(MODEL_NAME),
+    'description': '{} TensorFlow object detector model'.format(MODEL_NAME),
     'type': 'Object Detection',
     'source': 'https://developer.ibm.com/exchanges/models/all/max-object-detector/',
     'license': '{}'.format(MODEL_LICENSE)
