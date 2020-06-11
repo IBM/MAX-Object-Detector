@@ -42,7 +42,7 @@ RUN grep -v 'tensorflow' requirements.txt | python -m pip install -r /dev/stdin
 
 COPY . /workspace
 
-# Template substitution: Replace @model@ with the proper model name
+# Template substitution: Replaces @model@ with the proper model name
 RUN sed s/@model@/${model}/ config.py.in > config.py
 
 RUN if [ "$use_pre_trained_model" = "true" ] ; then \
