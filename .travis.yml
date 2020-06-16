@@ -58,9 +58,9 @@ after_success:
 matrix:
   include:
   - os: linux
-    env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64 MODEL=ssd_mobilenet_v1
+    env: DOCKERFILE=Dockerfile IMAGE=intel ARCH=x86_64 MODEL=ssd_mobilenet_v1
   - os: linux
-    env: DOCKERFILE=Dockerfile IMAGE=test ARCH=x86_64 MODEL=faster_rcnn_resnet101
+    env: DOCKERFILE=Dockerfile IMAGE=intel ARCH=x86_64 MODEL=faster_rcnn_resnet101
   - os: linux
     arch: arm64
     env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 MODEL=ssd_mobilenet_v1

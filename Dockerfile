@@ -40,6 +40,9 @@ RUN pip install -r requirements.txt
 
 COPY . /workspace
 
+# Template substitution: Replace @model@ with the proper model name
+RUN sed s/@model@/${model}/ config.py.in > config.py
+
 RUN if [ "$use_pre_trained_model" = "true" ] ; then \
       # validate downloaded pre-trained model assets
       sha512sum -c sha512sums-${model}.txt ; \
