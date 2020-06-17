@@ -40,7 +40,6 @@ def test_metadata():
     assert r.status_code == 200
 
     metadata = r.json()
-    model = os.getenv('MODEL')
     assert metadata['id'] == 'object-detector-ssd_mobilenet_v1'
     assert metadata['name'] == 'ssd_mobilenet_v1 TensorFlow Object Detector Model'
     assert metadata['description'] == 'ssd_mobilenet_v1 TensorFlow object detector model'
