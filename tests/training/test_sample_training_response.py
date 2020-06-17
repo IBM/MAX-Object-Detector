@@ -41,9 +41,9 @@ def test_metadata():
 
     metadata = r.json()
     model = os.getenv('MODEL')
-    assert metadata['id'] == f'object-detector-{model}'
-    assert metadata['name'] == f'{model} TensorFlow Object Detector Model'
-    assert metadata['description'] == f'{model} TensorFlow object detector model'
+    assert metadata['id'] == 'object-detector-ssd_mobilenet_v1'
+    assert metadata['name'] == 'ssd_mobilenet_v1 TensorFlow Object Detector Model'
+    assert metadata['description'] == 'ssd_mobilenet_v1 TensorFlow object detector model'
     assert metadata['type'] == 'Object Detection'
     assert metadata['source'] == 'https://developer.ibm.com/exchanges/models/all/max-object-detector/'
     assert metadata['license'] == 'ApacheV2'
