@@ -26,6 +26,7 @@ echo "Training data is stored in $DATA_DIR"
 # The WML stores work files in the $RESULT_DIR.
 echo "Training work files and results will be stored in $RESULT_DIR"
 
+# Cython is needed for pycococtools installation. Splitting the installation.
 echo "Installing prerequisite packages - 1..."
 pip install --user --no-deps -r training_prerequirements.txt
 echo "Installing prerequisite packages - 2..."

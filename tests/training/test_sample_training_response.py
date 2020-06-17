@@ -16,6 +16,7 @@
 
 import pytest
 import requests
+import os
 
 
 def test_swagger():
@@ -39,9 +40,10 @@ def test_metadata():
     assert r.status_code == 200
 
     metadata = r.json()
-    assert metadata['id'] == 'ssd_mobilenet_v1_coco_2017_11_17-tf-mobilenet'
-    assert metadata['name'] == 'ssd_mobilenet_v1_coco_2017_11_17 TensorFlow Model'
-    assert metadata['description'] == 'ssd_mobilenet_v1_coco_2017_11_17 TensorFlow model trained on MobileNet'
+    model = os.getenv('MODEL')
+    assert metadata['id'] == f'object-detector-{model}'
+    assert metadata['name'] == f'{model} TensorFlow Object Detector Model'
+    assert metadata['description'] == f'{model} TensorFlow object detector model'
     assert metadata['type'] == 'Object Detection'
     assert metadata['source'] == 'https://developer.ibm.com/exchanges/models/all/max-object-detector/'
     assert metadata['license'] == 'ApacheV2'
@@ -59,11 +61,9 @@ def test_predict():
     response = r.json()
 
     assert response['status'] == 'ok'
-
-    #  Teddy Bear
-    # assert response['predictions'][0]['label_id'] == '88'
-    assert (response['predictions'][0]['label'] == 'toy' or response['predictions'][0]['label'] == 'pen')
-    # assert response['predictions'][0]['probability'] > 0.95
+    # Training run uses fewer samples and epochs to train. Results have randomness due to this.
+    # Checking for all the new classes used in the sample data.
+    assert response['predictions'][0]['label'] in ('toy', 'pen')
 
 
 if __name__ == '__main__':
