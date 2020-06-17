@@ -16,7 +16,6 @@
 
 import pytest
 import requests
-import os
 
 
 def test_swagger():
