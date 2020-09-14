@@ -4,7 +4,11 @@
 
 # IBM Developer Model Asset Exchange: Object Detector
 
-This repository contains code to instantiate and deploy an object detection model. This model recognizes the objects present in an image from the 80 different high-level classes of objects in the [COCO Dataset](http://mscoco.org/). The model consists of a deep convolutional net base model for image feature extraction, together with additional convolutional layers specialized for the task of object detection, that was trained on the COCO data set. The input to the model is an image, and the output is a list of estimated class probabilities for the objects detected in the image.
+This repository contains code to instantiate and deploy an object detection model. This model recognizes the objects
+present in an image from the 80 different high-level classes of objects in the [COCO Dataset](http://mscoco.org/). The
+model consists of a deep convolutional net base model for image feature extraction, together with additional
+convolutional layers specialized for the task of object detection, that was trained on the COCO data set. The input to
+the model is an image, and the output is a list of estimated class probabilities for the objects detected in the image.
 
 The model is based on the [SSD Mobilenet V1 and Faster RCNN ResNet101 object detection model for TensorFlow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). The model files are hosted on IBM Cloud Object Storage: [ssd_mobilenet_v1.tar.gz](https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.2/ssd_mobilenet_v1.tar.gz) and [faster_rcnn_resnet101.tar.gz](https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.2/faster_rcnn_resnet101.tar.gz). The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
 
@@ -50,12 +54,12 @@ To run the docker image, which automatically starts the model serving API, run:
 
 Intel CPUs:
 ```bash
-$ docker run -it -p 5000:5000 codait/max-object-detector
+$ docker run -it -p 5000:5000 quay.io/codait/max-object-detector
 ```
 
 ARM CPUs (eg Raspberry Pi):
 ```bash
-$ docker run -it -p 5000:5000 codait/max-object-detector:arm-arm32v7-latest
+$ docker run -it -p 5000:5000 quay.io/codait/max-object-detector:arm-arm32v7-latest
 ```
 
 This will pull a pre-built image from Docker Hub (or use an existing image if already cached locally) and run it.
@@ -63,7 +67,9 @@ If you'd rather checkout and build the model locally you can follow the [run loc
 
 ## Deploy on Red Hat OpenShift
 
-You can deploy the model-serving microservice on Red Hat OpenShift by following the instructions for the OpenShift web console or the OpenShift Container Platform CLI [in this tutorial](https://developer.ibm.com/tutorials/deploy-a-model-asset-exchange-microservice-on-red-hat-openshift/), specifying `codait/max-object-detector` as the image name.
+You can deploy the model-serving microservice on Red Hat OpenShift by following the instructions for the OpenShift web
+console or the OpenShift Container Platform CLI [in this tutorial](https://developer.ibm.com/tutorials/deploy-a-model-asset-exchange-microservice-on-red-hat-openshift/),
+specifying `quay.io/codait/max-object-detector` as the image name.
 
 ## Deploy on Kubernetes
 
@@ -77,7 +83,8 @@ $ kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Object-Detector/mas
 
 The model will be available internally at port `5000`, but can also be accessed externally through the `NodePort`.
 
-A more elaborate tutorial on how to deploy this MAX model to production on [IBM Cloud](https://ibm.biz/Bdz2XM) can be found [here](http://ibm.biz/max-to-ibm-cloud-tutorial).
+A more elaborate tutorial on how to deploy this MAX model to production on [IBM Cloud](https://ibm.biz/Bdz2XM) can be
+found [here](http://ibm.biz/max-to-ibm-cloud-tutorial).
 
 ## Run Locally
 
@@ -222,7 +229,7 @@ and provides interactive visualization of the bounding boxes and their related l
 If you wish to disable the web app, start the model serving API by running:
 
 ```bash
-$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true codait/max-object-detector
+$ docker run -it -p 5000:5000 -e DISABLE_WEB_APP=true quay.io/codait/max-object-detector
 ```
 
 ## Train this Model on Watson Machine Learning

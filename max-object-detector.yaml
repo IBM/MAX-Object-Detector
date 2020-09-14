@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: max-object-detector
-        image: codait/max-object-detector:latest
+        image: quay.io/codait/max-object-detector:latest
         ports:
         - containerPort: 5000
         env:
