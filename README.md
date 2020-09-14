@@ -59,7 +59,7 @@ $ docker run -it -p 5000:5000 quay.io/codait/max-object-detector
 
 ARM CPUs (eg Raspberry Pi):
 ```bash
-$ docker run -it -p 5000:5000 quay.io/codait/max-object-detector:arm-arm32v7-latest
+$ docker run -it -p 5000:5000 quay.io/codait/max-object-detector:arm-arm32v7-latest-faster_rcnn_resnet101
 ```
 
 This will pull a pre-built image from Docker Hub (or use an existing image if already cached locally) and run it.
