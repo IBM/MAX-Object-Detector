@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.com/IBM/MAX-Object-Detector.svg?branch=master)](https://travis-ci.com/IBM/MAX-Object-Detector) [![Website Status](https://img.shields.io/website/http/max-object-detector.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-object-detector.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud)
+﻿[![Build Status](https://travis-ci.com/IBM/MAX-Object-Detector.svg?branch=master)](https://travis-ci.com/IBM/MAX-Object-Detector) [![Website Status](https://img.shields.io/website/http/max-object-detector.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-object-detector.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud)
 
 [<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
 
-# IBM Developer Model Asset Exchange: Object Detector
+# IBM Developer Model Asset Exchange  :  Object Detector
 
 This repository contains code to instantiate and deploy an object detection model. This model recognizes the objects
 present in an image from the 80 different high-level classes of objects in the [COCO Dataset](http://mscoco.org/). The
