@@ -20,6 +20,7 @@ from config import MODEL_META_DATA as model_meta
 from maxfw.model import MAXModelWrapper
 import io
 import numpy as np
+import flask
 import logging
 from config import PATH_TO_CKPT, PATH_TO_LABELS, NUM_CLASSES
 from utils import label_map_util
@@ -59,7 +60,10 @@ class ModelWrapper(MAXModelWrapper):
         self.categories = categories
 
     def _read_image(self, image_data):
-        image = Image.open(io.BytesIO(image_data)).convert("RGB")
+        try:
+            image = Image.open(io.BytesIO(image_data)).convert("RGB")
+        except IOError:
+            flask.abort(400, 'Unrecognized image format')
         return image
 
     def _pre_process(self, image):

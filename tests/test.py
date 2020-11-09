@@ -103,5 +103,16 @@ def test_predict():
     assert response['predictions'][child_index]['detection_box'][3] < 0.6
 
 
+def test_predict_non_image():
+    model_endpoint = 'http://localhost:5000/model/predict'
+    file_path = 'requirements.txt'
+
+    with open(file_path, 'rb') as file:
+        file_form = {'image': (file_path, file, 'image/jpeg')}
+        r = requests.post(url=model_endpoint, files=file_form)
+
+    assert r.status_code == 400
+
+
 if __name__ == '__main__':
     pytest.main([__file__])
