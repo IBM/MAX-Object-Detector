@@ -32,7 +32,7 @@ RUN if [ "$use_pre_trained_model" = "true" ] ; then\
     wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${data_file} --output-document=assets/${data_file} && \
            tar -x -C assets/ -f assets/${data_file} -v && rm assets/${data_file}; fi
 
-RUN wget -O - -nv --show-progress --progress=bar:force:noscroll https://github.com/IBM/MAX-Object-Detector-Web-App/archive/v2.0.tar.gz | \
+RUN wget -O - -nv --show-progress --progress=bar:force:noscroll https://github.com/IBM/MAX-Object-Detector-Web-App/archive/v2.1.tar.gz | \
   tar zxvf - --strip-components=1 --wildcards 'MAX-Object-Detector-Web-App-*/static'
 
 COPY requirements.txt /workspace
