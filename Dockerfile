@@ -16,7 +16,7 @@
 
 FROM quay.io/codait/max-base:v1.4.0
 
-RUN apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
+RUN sudo apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
 
 ARG model_bucket=https://max-cdn.cdn.appdomain.cloud/max-object-detector/1.0.2
 ARG model='ssd_mobilenet_v1'
