@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM quay.io/codait/max-base:v1.3.2
+FROM quay.io/codait/max-base:v1.4.0
 
 RUN apt-get update && apt-get -y install libatlas3-base && rm -rf /var/lib/apt/lists/*
 
@@ -23,8 +23,6 @@ ARG model='ssd_mobilenet_v1'
 ARG model_file=${model}.tar.gz
 ARG data_file=data.tar.gz
 ARG use_pre_trained_model=true
-
-WORKDIR /workspace
 
 RUN if [ "$use_pre_trained_model" = "true" ] ; then\
     wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=assets/${model_file} && \
@@ -35,10 +33,10 @@ RUN if [ "$use_pre_trained_model" = "true" ] ; then\
 RUN wget -O - -nv --show-progress --progress=bar:force:noscroll https://github.com/IBM/MAX-Object-Detector-Web-App/archive/v2.1.tar.gz | \
   tar zxvf - --strip-components=1 --wildcards 'MAX-Object-Detector-Web-App-*/static'
 
-COPY requirements.txt /workspace
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY . /workspace
+COPY . .
 
 # Template substitution: Replace @model@ with the proper model name
 RUN sed s/@model@/${model}/ config.py.in > config.py
