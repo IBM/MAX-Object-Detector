@@ -47,6 +47,7 @@ Y. Song, S. Guadarrama, K. Murphy_, ["Speed/accuracy trade-offs for modern convo
 * [Deploy from Quay](#deploy-from-quay)
 * [Deploy on Red Hat OpenShift](#deploy-on-red-hat-openshift)
 * [Deploy on Kubernetes](#deploy-on-kubernetes)
+* [Deploy on Code Engine](#deploy-on-code-engine)
 * [Run Locally](#run-locally)
 
 ## Deploy from Quay
@@ -86,6 +87,24 @@ The model will be available internally at port `5000`, but can also be accessed 
 
 A more elaborate tutorial on how to deploy this MAX model to production on [IBM Cloud](https://ibm.biz/Bdz2XM) can be
 found [here](http://ibm.biz/max-to-ibm-cloud-tutorial).
+
+## Deploy on Code Engine
+
+You can also deploy the model on IBM Cloud's [Code Engine](https://cloud.ibm.com/codeengine/) platform which is based on the Knative serverless framework. Once authenticated with your IBM Cloud account, run the commands below.
+
+Create a Code Engine project, give it a unique name
+
+```bash
+$ ibmcloud ce project create --name sandbox
+```
+
+Run the container by pointing to the [quay.io](quay.io/codait/max-object-detector) image and exposting port 5000.
+
+```bash
+$ ibmcloud ce application create --name max-object-detector --image quay.io/codait/max-object-detector --port 5000
+```
+
+Open the resulting URL in a browser, append `/app` to view the app instead of the API.
 
 ## Run Locally
 
