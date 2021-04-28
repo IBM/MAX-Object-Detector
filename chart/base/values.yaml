@@ -6,7 +6,7 @@ base:
   runtime: python
 
   image:
-    repository: mynamespace/myimage
+    repository: quay.io/codait/max-object-detector:latest
     port: 5000
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
