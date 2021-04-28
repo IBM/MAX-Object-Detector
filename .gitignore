@@ -114,3 +114,7 @@ ENV/
 # local build files
 static/
 assets/data/
+
+# Helm
+*.tgz
+Chart.lock
