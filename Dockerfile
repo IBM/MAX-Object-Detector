@@ -1,5 +1,5 @@
 #
-# Copyright 2018-2019 IBM Corp. All Rights Reserved.
+# Copyright 2018-2021 IBM Corp. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM quay.io/codait/max-base:v1.4.0
+FROM quay.io/codait/max-base:v1.4.2
 
 # hadolint ignore=DL3004
 RUN sudo apt-get update && sudo apt-get -y install libatlas3-base && sudo rm -rf /var/lib/apt/lists/*
@@ -38,8 +38,7 @@ RUN wget -O - -nv --show-progress --progress=bar:force:noscroll https://github.c
 # hadolint ignore=DL3045,DL3059
 COPY requirements.txt .
 
-# hadolint ignore=DL3042
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # hadolint ignore=DL3045
 COPY . .
