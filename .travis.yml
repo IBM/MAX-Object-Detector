@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+dist: focal
+
 language: python
 
 python:
@@ -42,7 +44,7 @@ install:
   - pip install -r requirements-test.txt
 
 before_script:
-  - flake8 . --max-line-length=127 --exclude utils/,protos/,training/training_code/
+  - flake8 . --max-line-length=127 --exclude utils/,protos/
   - bandit -r .
   - sleep 30
 
@@ -64,6 +66,11 @@ matrix:
   - os: linux
     arch: arm64
     env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 MODEL=ssd_mobilenet_v1
+    # Not enough memory on Travis CI to run this test perhaps due to a Travis CI container configuration issue. Have
+    # contacted customer service. Allow failure before we address this.
   - os: linux
     arch: arm64
-    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 MODEL=faster_rcnn_resnet101
+    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 MODEL=faster_rcnn_resnet101 ALLOW_FAIL=true
+  allow_failures: 
+    env: DOCKERFILE=Dockerfile.arm32v7 IMAGE=arm ARCH=arm32v7 MODEL=faster_rcnn_resnet101 ALLOW_FAIL=true
+    

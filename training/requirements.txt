@@ -1,5 +1,0 @@
-# 
-# Install requirements for MAX model training
-# pip install -r requirements.txt --upgrade
-#
-max-training-framework>=0.1
