@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM quay.io/codait/max-base:v1.5.0
+FROM quay.io/codait/max-base:v1.5.1
 
 # hadolint ignore=DL3004
 RUN sudo apt-get update && sudo apt-get -y install libatlas3-base && sudo rm -rf /var/lib/apt/lists/*
