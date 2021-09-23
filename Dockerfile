@@ -46,15 +46,13 @@ COPY . .
 # Template substitution: Replace @model@ with the proper model name
 RUN sed s/@model@/${model}/ config.py.in > config.py
 
-# hadolint ignore=DL3059,SC1075
+# hadolint ignore=DL3059
 RUN if [ "$use_pre_trained_model" = "true" ] ; then \
       # validate downloaded pre-trained model assets
       sha512sum -c sha512sums-${model}.txt ; \
-    else \
+    elif [ -d "./custom_assets/" ] ; then \
       # rename the directory that contains the custom-trained model artifacts
-      if [ -d "./custom_assets/" ] ; then \
-        rm -rf ./assets && ln -s ./custom_assets ./assets ; \
-      fi \
+      rm -rf ./assets && ln -s ./custom_assets ./assets ; \
     fi
 
 EXPOSE 5000
