@@ -17,7 +17,7 @@
 FROM quay.io/codait/max-base:v1.5.2
 
 # hadolint ignore=DL3004
-RUN sudo apt-get update && sudo apt-get -y install libatlas3-base && sudo rm -rf /var/lib/apt/lists/*
+RUN  apt-get update &&  apt-get -y install libatlas3-base &&  rm -rf /var/lib/apt/lists/*
 
 ARG model_bucket=https://codait-cos-max.s3.us.cloud-object-storage.appdomain.cloud/max-object-detector/1.0.2
 ARG model='ssd_mobilenet_v1'
